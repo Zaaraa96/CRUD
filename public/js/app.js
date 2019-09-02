@@ -4212,45 +4212,113 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      data: []
+    };
   },
-  methods: {
-    data: function data() {
-      var table = {};
-      var tableData = [];
-      this.$http.get('/dashboard').then(function (response) {
-        return response;
-      }).then(function (data) {
-        table = data.body; //  console.log(table);
+  mounted: function mounted() {
+    //this.resource= this.$resource('/dashboard');
+    var table = {};
+    var tableData = [];
+    this.$http.get('/dashboard').then(function (response) {
+      return response;
+    }).then(function (data) {
+      table = data.body; //  console.log(table);
 
-        for (var i = 0; i < table.hosts.length; i++) {
-          tableData[i] = {
-            hostname: table.hosts[i].hostname,
-            IP: table.hosts[i].ip,
-            collector: table.hosts[i].collector,
-            assetValue: table.hosts[i].hostname,
-            icon: table.hosts[i].icon,
-            FQDN: table.hosts[i].FQDN,
-            OS: table.hosts[i].OS,
-            OSversion: table.hosts[i].OSversion,
-            CPU: table.hosts[i].CPU,
-            CPUbrand: table.hosts[i].CPUbrand,
-            RAM: table.hosts[i].RAM,
-            RAMbrand: table.hosts[i].RAMbrand,
-            MACaddress: table.hosts[i].MACaddress,
-            location: table.hosts[i].location,
-            HDD: table.hosts[i].HDD,
-            HDDbrand: table.hosts[i].HDDbrand
-          };
+      for (var i = 0; i < table.hosts.length; i++) {
+        tableData.push({
+          id: table.hosts[i].id,
+          hostname: table.hosts[i].hostname,
+          IP: table.hosts[i].ip,
+          collector: table.hosts[i].collector,
+          assetValue: table.hosts[i].hostname,
+          icon: table.hosts[i].icon,
+          FQND: table.hosts[i].FQND,
+          OS: table.hosts[i].OS,
+          OSversion: table.hosts[i].OSversion,
+          CPU: table.hosts[i].CPU,
+          CPUbrand: table.hosts[i].CPUbrand,
+          RAM: table.hosts[i].RAM,
+          RAMbrand: table.hosts[i].RAMbrand,
+          MACaddress: table.hosts[i].MACaddress,
+          location: table.hosts[i].location,
+          HDD: table.hosts[i].HDD,
+          HDDbrand: table.hosts[i].HDDbrand,
+          services: [],
+          softwares: [],
+          owners: [],
+          usernames: []
+        });
+      }
+
+      for (var _i = 0; _i < tableData.length; _i++) {
+        for (var j = 0; j < table.service.length; j++) {
+          if (tableData[_i].id == table.service[j].hostID) {
+            tableData[_i].services.push(table.service[j].service);
+
+            tableData[_i].services.push(',');
+          }
         }
-      });
+
+        for (var _j = 0; _j < table.software.length; _j++) {
+          if (tableData[_i].id == table.software[_j].hostID) {
+            tableData[_i].softwares.push(table.software[_j].software);
+
+            tableData[_i].softwares.push(',');
+          }
+        }
+
+        for (var _j2 = 0; _j2 < table.owner.length; _j2++) {
+          if (tableData[_i].id == table.owner[_j2].hostID) {
+            tableData[_i].owners.push(table.owner[_j2].owner);
+
+            tableData[_i].owners.push(',');
+          }
+        }
+
+        for (var _j3 = 0; _j3 < table.username.length; _j3++) {
+          if (tableData[_i].id == table.username[_j3].hostID) {
+            tableData[_i].usernames.push(table.username[_j3].username);
+
+            tableData[_i].usernames.push(',');
+          }
+        }
+      }
+
+      for (var _i2 = 0; _i2 < tableData.length; _i2++) {
+        tableData[_i2].services.pop();
+
+        tableData[_i2].softwares.pop();
+
+        tableData[_i2].owners.pop();
+
+        tableData[_i2].usernames.pop();
+      }
+
       console.log(tableData);
-      return tableData;
-    }
-  },
-  mounted: function mounted() {//this.resource= this.$resource('/dashboard');
+    });
+    this.data = tableData;
   }
 });
 
@@ -99897,7 +99965,7 @@ var render = function() {
         "el-table",
         {
           staticStyle: { width: "100%" },
-          attrs: { data: _vm.data(), height: "250", stripe: "" }
+          attrs: { data: _vm.data, height: "1250", stripe: "" }
         },
         [
           _c("el-table-column", {
@@ -99919,7 +99987,7 @@ var render = function() {
           _c("el-table-column", { attrs: { prop: "icon", label: "icon" } }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "FQDN", label: "FQDN", width: "110px" }
+            attrs: { prop: "FQND", label: "FQND", width: "110px" }
           }),
           _vm._v(" "),
           _c("el-table-column", {
@@ -99960,6 +100028,22 @@ var render = function() {
           _vm._v(" "),
           _c("el-table-column", {
             attrs: { prop: "HDDbrand", label: "H.D.D brand", width: "110px" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "services", label: "services", width: "110px" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "softwares", label: "softwares", width: "110px" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "owners", label: "owners", width: "110px" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "usernames", label: "user names", width: "110px" }
           })
         ],
         1
