@@ -30,9 +30,11 @@ window.Vue = require('vue');
  import App from './App.vue';
  import ElementUI from 'element-ui';
  import 'element-ui/lib/theme-chalk/index.css';
+ import VueResource from 'vue-resource';
 
  Vue.use(ElementUI);
-
+ Vue.use(VueResource);
+Vue.http.options.root= 'localhost:8000';
  const app = new Vue({
    el: '#app',
    render: h => h(App),

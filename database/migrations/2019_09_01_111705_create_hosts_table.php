@@ -19,18 +19,19 @@ class CreateHostsTable extends Migration
             $table->string('hostname');
             $table->ipAddress('ip');
             $table->string('collector');
+            $table->string('assetValue');
             $table->string('icon');
             $table->string('FQND');
             $table->string('OS');
-            $table->string('OS version');
+            $table->string('OSversion');
             $table->string('CPU');
-            $table->string('CPU brand');
+            $table->string('CPUbrand');
             $table->string('RAM');
-            $table->string('RAM brand');
-            $table->macAddress('MAC address');
+            $table->string('RAMbrand');
+            $table->macAddress('MACaddress');
             $table->string('location');
             $table->string('HDD');
-            $table->string('HDD brand');
+            $table->string('HDDbrand');
         });
     }
 

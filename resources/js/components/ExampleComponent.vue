@@ -107,8 +107,6 @@
 </template>
 
 <script>
-  import dynamic from './dynamic.vue';
-
 export default {
 
 data() {
@@ -230,11 +228,7 @@ data() {
       this.links = this.loadAll();
 
 
-    },
-
-    components: {
-      dynamic
-}
+    }
 
 }
 
