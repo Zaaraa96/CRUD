@@ -4086,10 +4086,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -4097,7 +4093,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'app',
   data: function data() {
     return {
-      visible: false
+      visible: false,
+      selectedComponent: _components_signin_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
     };
   },
   components: {
@@ -4315,8 +4312,6 @@ __webpack_require__.r(__webpack_exports__);
 
         tableData[_i2].usernames.pop();
       }
-
-      console.log(tableData);
     });
     this.data = tableData;
   }
@@ -4441,12 +4436,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       assetValue: false,
       icon: false,
-      FQDN: false,
+      FQND: false,
       OS: false,
       OSversion: false,
       CPU: false,
@@ -4454,143 +4450,62 @@ __webpack_require__.r(__webpack_exports__);
       RAM: false,
       RAMbrand: false,
       MACaddress: false,
-      services: 0,
-      usernames: 0,
-      owners: 0,
+      servicesnum: 0,
+      usernamesnum: 0,
+      ownersnum: 0,
       location: false,
-      softwares: 0,
+      softwaresnum: 0,
       HDD: false,
       HDDbrand: false,
-      comp: 'dynamic',
-      links: [],
-      state1: '',
-      state2: '',
-      ruleForm: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+      host: {
+        hostname: '',
+        IP: '',
+        collector: '',
+        assetValue: '',
+        icon: '',
+        FQND: '',
+        OS: '',
+        OSversion: '',
+        CPU: '',
+        CPUbrand: '',
+        RAM: '',
+        RAMbrand: '',
+        MACaddress: '',
+        location: '',
+        HDD: '',
+        HDDbrand: ''
       },
+      services: [],
+      softwares: [],
+      owners: [],
+      usernames: [],
       rules: {
         name: [{
           required: false,
-          message: 'Please input Activity name',
-          trigger: 'blur'
-        }, {
-          min: 3,
-          max: 5,
-          message: 'Length should be 3 to 5',
-          trigger: 'blur'
-        }],
-        region: [{
-          required: true,
-          message: 'Please select Activity zone',
-          trigger: 'change'
-        }],
-        date1: [{
-          type: 'date',
-          required: true,
-          message: 'Please pick a date',
-          trigger: 'change'
-        }],
-        date2: [{
-          type: 'date',
-          required: true,
-          message: 'Please pick a time',
-          trigger: 'change'
-        }],
-        type: [{
-          type: 'array',
-          required: true,
-          message: 'Please select at least one activity type',
-          trigger: 'change'
-        }],
-        resource: [{
-          required: true,
-          message: 'Please select activity resource',
-          trigger: 'change'
-        }],
-        desc: [{
-          required: true,
-          message: 'Please input activity form',
           trigger: 'blur'
         }]
       }
     };
   },
   methods: {
-    addelement: function addelement() {
-      var form = document.createElement("el-form-item");
-      var btn = document.createElement("el-input");
-      document.getElementById("form").appendChild(form);
-      document.getElementById("form").appendChild(btn);
-    },
-    submitForm: function submitForm(formName) {
-      this.$refs[formName].validate(function (valid) {
-        if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
+    submit: function submit() {
+      //
+      // console.log(this.host);
+      // console.log(this.services);
+      // console.log(this.softwares);
+      // console.log(this.owners);
+      // console.log(this.usernames);
+      var host = this.host;
+      host.services = this.services;
+      host.softwares = this.softwares;
+      host.usernames = this.usernames;
+      host.owners = this.owners;
+      this.$http.post('/dashboard', host).then(function (response) {
+        console.log(response);
+      }, function (error) {
+        console.log(error);
       });
-    },
-    resetForm: function resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
-    querySearch: function querySearch(queryString, cb) {
-      var links = [];
-
-      for (var i = 0; i < this.links.length; i++) {
-        if (!this.links[i].used) {
-          links.push(this.links[i]);
-        }
-      }
-
-      console.log(links);
-      var results = queryString ? links.filter(this.createFilter(queryString)) : links; // call callback function to return suggestions
-
-      cb(results);
-    },
-    createFilter: function createFilter(queryString) {
-      return function (link) {
-        return link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0;
-      };
-    },
-    loadAll: function loadAll() {
-      return [{
-        "value": "vue",
-        "used": true
-      }, {
-        "value": "element",
-        "used": false
-      }, {
-        "value": "cooking",
-        "used": false
-      }, {
-        "value": "mint-ui",
-        "used": false
-      }, {
-        "value": "vuex",
-        "used": false
-      }, {
-        "value": "vue-router",
-        "used": false
-      }, {
-        "value": "babel",
-        "used": false
-      }];
-    },
-    handleSelect: function handleSelect(item) {
-      console.log(item);
     }
-  },
-  mounted: function mounted() {
-    this.links = this.loadAll();
   }
 });
 
@@ -11073,7 +10988,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Add scoped styles */\n#app[data-v-f348271a] {\n  padding: 20px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Add scoped styles */\n#app[data-v-f348271a] {\n  padding: 20px;\n}\n", ""]);
 
 // exports
 
@@ -99915,23 +99830,48 @@ var render = function() {
     "div",
     { attrs: { id: "app" } },
     [
-      _c("signin"),
+      _c(
+        "el-button",
+        {
+          attrs: { type: "primary", plain: "" },
+          on: {
+            click: function($event) {
+              _vm.selectedComponent = "signin"
+            }
+          }
+        },
+        [_vm._v("sign in")]
+      ),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          attrs: { type: "primary", plain: "" },
+          on: {
+            click: function($event) {
+              _vm.selectedComponent = "dashboard"
+            }
+          }
+        },
+        [_vm._v("dashboard")]
+      ),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          attrs: { type: "primary", plain: "" },
+          on: {
+            click: function($event) {
+              _vm.selectedComponent = "exampleComponent"
+            }
+          }
+        },
+        [_vm._v("add to table")]
+      ),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("dashboard"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("exampleComponent")
+      _c(_vm.selectedComponent, { tag: "component" })
     ],
     1
   )
@@ -100085,26 +100025,21 @@ var render = function() {
           _c(
             "el-form",
             {
-              ref: "ruleForm",
               staticClass: "demo-ruleForm",
-              attrs: {
-                model: _vm.ruleForm,
-                rules: _vm.rules,
-                "label-width": "120px"
-              }
+              attrs: { rules: _vm.rules, "label-width": "120px" }
             },
             [
               _c(
                 "el-form-item",
-                { attrs: { label: "host name", prop: "name" } },
+                { attrs: { label: "host name", prop: "hostname" } },
                 [
                   _c("el-input", {
                     model: {
-                      value: _vm.ruleForm.name,
+                      value: _vm.host.hostname,
                       callback: function($$v) {
-                        _vm.$set(_vm.ruleForm, "name", $$v)
+                        _vm.$set(_vm.host, "hostname", $$v)
                       },
-                      expression: "ruleForm.name"
+                      expression: "host.hostname"
                     }
                   })
                 ],
@@ -100113,15 +100048,15 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "el-form-item",
-                { attrs: { label: "IP", prop: "name" } },
+                { attrs: { label: "IP", prop: "IP" } },
                 [
                   _c("el-input", {
                     model: {
-                      value: _vm.ruleForm.name,
+                      value: _vm.host.IP,
                       callback: function($$v) {
-                        _vm.$set(_vm.ruleForm, "name", $$v)
+                        _vm.$set(_vm.host, "IP", $$v)
                       },
-                      expression: "ruleForm.name"
+                      expression: "host.IP"
                     }
                   })
                 ],
@@ -100130,15 +100065,15 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "el-form-item",
-                { attrs: { label: "collector", prop: "name" } },
+                { attrs: { label: "collector", prop: "collector" } },
                 [
                   _c("el-input", {
                     model: {
-                      value: _vm.ruleForm.name,
+                      value: _vm.host.collector,
                       callback: function($$v) {
-                        _vm.$set(_vm.ruleForm, "name", $$v)
+                        _vm.$set(_vm.host, "collector", $$v)
                       },
-                      expression: "ruleForm.name"
+                      expression: "host.collector"
                     }
                   })
                 ],
@@ -100148,15 +100083,15 @@ var render = function() {
               _vm.assetValue
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "asset value", prop: "name" } },
+                    { attrs: { label: "asset value", prop: "assetValue" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.assetValue,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "assetValue", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.assetValue"
                         }
                       })
                     ],
@@ -100167,15 +100102,15 @@ var render = function() {
               _vm.icon
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "icon", prop: "name" } },
+                    { attrs: { label: "icon", prop: "icon" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.icon,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "icon", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.icon"
                         }
                       })
                     ],
@@ -100183,18 +100118,18 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.FQDN
+              _vm.FQND
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "FQDN", prop: "name" } },
+                    { attrs: { label: "FQND", prop: "FQND" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.FQND,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "FQND", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.FQND"
                         }
                       })
                     ],
@@ -100205,15 +100140,15 @@ var render = function() {
               _vm.OS
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "OS", prop: "name" } },
+                    { attrs: { label: "OS", prop: "OS" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.OS,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "OS", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.OS"
                         }
                       })
                     ],
@@ -100224,15 +100159,15 @@ var render = function() {
               _vm.OSversion
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "OS version", prop: "name" } },
+                    { attrs: { label: "OS version", prop: "OSversion" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.OSversion,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "OSversion", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.OSversion"
                         }
                       })
                     ],
@@ -100243,15 +100178,15 @@ var render = function() {
               _vm.CPU
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "CPU", prop: "name" } },
+                    { attrs: { label: "CPU", prop: "CPU" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.CPU,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "CPU", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.CPU"
                         }
                       })
                     ],
@@ -100262,15 +100197,15 @@ var render = function() {
               _vm.CPUbrand
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "CPU brand", prop: "name" } },
+                    { attrs: { label: "CPU brand", prop: "CPUbrand" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.CPUbrand,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "CPUbrand", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.CPUbrand"
                         }
                       })
                     ],
@@ -100281,15 +100216,15 @@ var render = function() {
               _vm.RAM
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "RAM", prop: "name" } },
+                    { attrs: { label: "RAM", prop: "RAM" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.RAM,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "RAM", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.RAM"
                         }
                       })
                     ],
@@ -100300,15 +100235,15 @@ var render = function() {
               _vm.RAMbrand
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "RAM brand", prop: "name" } },
+                    { attrs: { label: "RAM brand", prop: "RAMbrand" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.RAMbrand,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "RAMbrand", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.RAMbrand"
                         }
                       })
                     ],
@@ -100319,15 +100254,15 @@ var render = function() {
               _vm.MACaddress
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "MAC address", prop: "name" } },
+                    { attrs: { label: "MAC address", prop: "MACaddress" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.MACaddress,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "MACaddress", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.MACaddress"
                         }
                       })
                     ],
@@ -100335,18 +100270,18 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm._l(_vm.services, function(service) {
+              _vm._l(_vm.servicesnum, function(service, index) {
                 return _c(
                   "el-form-item",
-                  { attrs: { label: "service", prop: "name" } },
+                  { attrs: { label: "service", prop: "service" } },
                   [
                     _c("el-input", {
                       model: {
-                        value: _vm.ruleForm.name,
+                        value: _vm.services[index],
                         callback: function($$v) {
-                          _vm.$set(_vm.ruleForm, "name", $$v)
+                          _vm.$set(_vm.services, index, $$v)
                         },
-                        expression: "ruleForm.name"
+                        expression: "services[index]"
                       }
                     })
                   ],
@@ -100354,18 +100289,18 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _vm._l(_vm.usernames, function(username) {
+              _vm._l(_vm.usernamesnum, function(username, index) {
                 return _c(
                   "el-form-item",
-                  { attrs: { label: "username", prop: "name" } },
+                  { attrs: { label: "username", prop: "username" } },
                   [
                     _c("el-input", {
                       model: {
-                        value: _vm.ruleForm.name,
+                        value: _vm.usernames[index],
                         callback: function($$v) {
-                          _vm.$set(_vm.ruleForm, "name", $$v)
+                          _vm.$set(_vm.usernames, index, $$v)
                         },
-                        expression: "ruleForm.name"
+                        expression: "usernames[index]"
                       }
                     })
                   ],
@@ -100373,18 +100308,18 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _vm._l(_vm.owners, function(owner) {
+              _vm._l(_vm.ownersnum, function(owner, index) {
                 return _c(
                   "el-form-item",
-                  { attrs: { label: "owner", prop: "name" } },
+                  { attrs: { label: "owner", prop: "owner" } },
                   [
                     _c("el-input", {
                       model: {
-                        value: _vm.ruleForm.name,
+                        value: _vm.owners[index],
                         callback: function($$v) {
-                          _vm.$set(_vm.ruleForm, "name", $$v)
+                          _vm.$set(_vm.owners, index, $$v)
                         },
-                        expression: "ruleForm.name"
+                        expression: "owners[index]"
                       }
                     })
                   ],
@@ -100395,15 +100330,15 @@ var render = function() {
               _vm.location
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "location", prop: "name" } },
+                    { attrs: { label: "location", prop: "location" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.location,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "location", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.location"
                         }
                       })
                     ],
@@ -100411,18 +100346,18 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm._l(_vm.softwares, function(software) {
+              _vm._l(_vm.softwaresnum, function(software, index) {
                 return _c(
                   "el-form-item",
-                  { attrs: { label: "software", prop: "name" } },
+                  { attrs: { label: "software", prop: "software" } },
                   [
                     _c("el-input", {
                       model: {
-                        value: _vm.ruleForm.name,
+                        value: _vm.softwares[index],
                         callback: function($$v) {
-                          _vm.$set(_vm.ruleForm, "name", $$v)
+                          _vm.$set(_vm.softwares, index, $$v)
                         },
-                        expression: "ruleForm.name"
+                        expression: "softwares[index]"
                       }
                     })
                   ],
@@ -100433,15 +100368,15 @@ var render = function() {
               _vm.HDD
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "H.D.D", prop: "name" } },
+                    { attrs: { label: "H.D.D", prop: "HDD" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.HDD,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "HDD", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.HDD"
                         }
                       })
                     ],
@@ -100452,21 +100387,27 @@ var render = function() {
               _vm.HDDbrand
                 ? _c(
                     "el-form-item",
-                    { attrs: { label: "H.D.D brand", prop: "name" } },
+                    { attrs: { label: "H.D.D brand", prop: "HDDbrand" } },
                     [
                       _c("el-input", {
                         model: {
-                          value: _vm.ruleForm.name,
+                          value: _vm.host.HDDbrand,
                           callback: function($$v) {
-                            _vm.$set(_vm.ruleForm, "name", $$v)
+                            _vm.$set(_vm.host, "HDDbrand", $$v)
                           },
-                          expression: "ruleForm.name"
+                          expression: "host.HDDbrand"
                         }
                       })
                     ],
                     1
                   )
-                : _vm._e()
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                { attrs: { type: "primary" }, on: { click: _vm.submit } },
+                [_vm._v("Submit")]
+              )
             ],
             2
           )
@@ -100513,11 +100454,11 @@ var render = function() {
                   attrs: { round: "" },
                   on: {
                     click: function($event) {
-                      _vm.FQDN = true
+                      _vm.FQND = true
                     }
                   }
                 },
-                [_vm._v("FQDN")]
+                [_vm._v("FQND")]
               ),
               _vm._v(" "),
               _c(
@@ -100633,11 +100574,11 @@ var render = function() {
                   attrs: { round: "" },
                   on: {
                     click: function($event) {
-                      _vm.services++
+                      _vm.servicesnum++
                     }
                   }
                 },
-                [_vm._v("services(" + _vm._s(_vm.services) + ")")]
+                [_vm._v("services(" + _vm._s(_vm.servicesnum) + ")")]
               )
             ],
             1
@@ -100654,11 +100595,11 @@ var render = function() {
                   attrs: { round: "" },
                   on: {
                     click: function($event) {
-                      _vm.usernames++
+                      _vm.usernamesnum++
                     }
                   }
                 },
-                [_vm._v("usernames(" + _vm._s(_vm.usernames) + ")")]
+                [_vm._v("usernames(" + _vm._s(_vm.usernamesnum) + ")")]
               ),
               _vm._v(" "),
               _c(
@@ -100667,11 +100608,11 @@ var render = function() {
                   attrs: { round: "" },
                   on: {
                     click: function($event) {
-                      _vm.owners++
+                      _vm.ownersnum++
                     }
                   }
                 },
-                [_vm._v("owners(" + _vm._s(_vm.owners) + ")")]
+                [_vm._v("owners(" + _vm._s(_vm.ownersnum) + ")")]
               ),
               _vm._v(" "),
               _c(
@@ -100701,11 +100642,11 @@ var render = function() {
                   attrs: { round: "" },
                   on: {
                     click: function($event) {
-                      _vm.softwares++
+                      _vm.softwaresnum++
                     }
                   }
                 },
-                [_vm._v("softwares(" + _vm._s(_vm.softwares) + ")")]
+                [_vm._v("softwares(" + _vm._s(_vm.softwaresnum) + ")")]
               ),
               _vm._v(" "),
               _c(

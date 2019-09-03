@@ -17,7 +17,7 @@ class CreateUsernamesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedBigInteger('hostID');
-            $table->string('username');
+            $table->string('username')->nullable();
 
         });
     }

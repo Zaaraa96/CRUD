@@ -17,21 +17,21 @@ class CreateHostsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('hostname');
-            $table->ipAddress('ip');
-            $table->string('collector');
-            $table->string('assetValue');
-            $table->string('icon');
-            $table->string('FQND');
-            $table->string('OS');
-            $table->string('OSversion');
-            $table->string('CPU');
-            $table->string('CPUbrand');
-            $table->string('RAM');
-            $table->string('RAMbrand');
-            $table->macAddress('MACaddress');
-            $table->string('location');
-            $table->string('HDD');
-            $table->string('HDDbrand');
+            $table->ipAddress('ip')->nullable();
+            $table->string('collector')->nullable();
+            $table->string('assetValue')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('FQND')->nullable();
+            $table->string('OS')->nullable();
+            $table->string('OSversion')->nullable();
+            $table->string('CPU')->nullable();
+            $table->string('CPUbrand')->nullable();
+            $table->string('RAM')->nullable();
+            $table->string('RAMbrand')->nullable();
+            $table->macAddress('MACaddress')->nullable();
+            $table->string('location')->nullable();
+            $table->string('HDD')->nullable();
+            $table->string('HDDbrand')->nullable();
         });
     }
 

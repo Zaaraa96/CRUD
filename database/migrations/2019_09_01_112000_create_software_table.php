@@ -17,7 +17,7 @@ class CreateSoftwareTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedBigInteger('hostID');
-            $table->string('software');
+            $table->string('software')->nullable();
         });
     }
 

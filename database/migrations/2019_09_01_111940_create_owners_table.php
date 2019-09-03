@@ -17,7 +17,7 @@ class CreateOwnersTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedBigInteger('hostID');
-            $table->string('owner');
+            $table->string('owner')->nullable();
         });
     }
 

@@ -199,7 +199,6 @@
                     tableData[i].usernames.pop();
                   }
 
-                  console.log(tableData);
                 });
                 this.data= tableData;
       },

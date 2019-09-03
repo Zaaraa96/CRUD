@@ -1,76 +1,77 @@
 <template>
     <el-row :gutter="20">
        <el-col :span="8" :offset="4">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-        <el-form-item label="host name" prop="name">
+      <el-form  :rules="rules" label-width="120px" class="demo-ruleForm">
+        <el-form-item label="host name" prop="hostname">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="IP" prop="name">
+        <el-input v-model="host.hostname"></el-input></el-form-item>
+        <el-form-item label="IP" prop="IP">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="collector" prop="name">
+        <el-input v-model="host.IP"></el-input></el-form-item>
+        <el-form-item label="collector" prop="collector">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
+        <el-input v-model="host.collector"></el-input></el-form-item>
 
-        <el-form-item label="asset value" prop="name"   v-if="assetValue">
+        <el-form-item label="asset value" prop="assetValue"   v-if="assetValue">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="icon" prop="name"   v-if="icon">
+        <el-input v-model="host.assetValue"></el-input></el-form-item>
+        <el-form-item label="icon" prop="icon"   v-if="icon">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="FQDN" prop="name"   v-if="FQDN">
+        <el-input v-model="host.icon"></el-input></el-form-item>
+        <el-form-item label="FQND" prop="FQND"   v-if="FQND">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="OS" prop="name"   v-if="OS">
+        <el-input v-model="host.FQND"></el-input></el-form-item>
+        <el-form-item label="OS" prop="OS"   v-if="OS">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="OS version" prop="name"   v-if="OSversion">
+        <el-input v-model="host.OS"></el-input></el-form-item>
+        <el-form-item label="OS version" prop="OSversion"   v-if="OSversion">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="CPU" prop="name"   v-if="CPU">
+        <el-input v-model="host.OSversion"></el-input></el-form-item>
+        <el-form-item label="CPU" prop="CPU"   v-if="CPU">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="CPU brand" prop="name"   v-if="CPUbrand">
+        <el-input v-model="host.CPU"></el-input></el-form-item>
+        <el-form-item label="CPU brand" prop="CPUbrand"   v-if="CPUbrand">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="RAM" prop="name"   v-if="RAM">
+        <el-input v-model="host.CPUbrand"></el-input></el-form-item>
+        <el-form-item label="RAM" prop="RAM"   v-if="RAM">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="RAM brand" prop="name"   v-if="RAMbrand">
+        <el-input v-model="host.RAM"></el-input></el-form-item>
+        <el-form-item label="RAM brand" prop="RAMbrand"   v-if="RAMbrand">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="MAC address" prop="name"   v-if="MACaddress">
+        <el-input v-model="host.RAMbrand"></el-input></el-form-item>
+        <el-form-item label="MAC address" prop="MACaddress"   v-if="MACaddress">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="service" prop="name"   v-for="service in services">
+        <el-input v-model="host.MACaddress"></el-input></el-form-item>
+        <el-form-item label="service" prop="service"   v-for="(service,index) in servicesnum">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="username" prop="name"   v-for="username in usernames">
+        <el-input v-model="services[index]"></el-input></el-form-item>
+        <el-form-item label="username" prop="username"   v-for="(username,index) in usernamesnum">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="owner" prop="name"   v-for="owner in owners">
+        <el-input v-model="usernames[index]"></el-input></el-form-item>
+        <el-form-item label="owner" prop="owner"   v-for="(owner,index) in ownersnum">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="location" prop="name"   v-if="location">
+        <el-input v-model="owners[index]"></el-input></el-form-item>
+        <el-form-item label="location" prop="location"   v-if="location">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="software" prop="name"   v-for="software in softwares">
+        <el-input v-model="host.location"></el-input></el-form-item>
+        <el-form-item label="software" prop="software"   v-for="(software,index) in softwaresnum">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="H.D.D" prop="name"   v-if="HDD">
+        <el-input v-model="softwares[index]"></el-input></el-form-item>
+        <el-form-item label="H.D.D" prop="HDD"   v-if="HDD">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="H.D.D brand" prop="name"   v-if="HDDbrand">
+        <el-input v-model="host.HDD"></el-input></el-form-item>
+        <el-form-item label="H.D.D brand" prop="HDDbrand"   v-if="HDDbrand">
 
-        <el-input v-model="ruleForm.name"></el-input></el-form-item>
+        <el-input v-model="host.HDDbrand"></el-input></el-form-item>
 
+        <el-button type="primary" @click="submit">Submit</el-button>
       </el-form>
       </el-col>
       <el-col :span="8">
         <el-row>
         <el-button round  @click="assetValue=true">asset value</el-button>
         <el-button round  @click="icon=true">icon</el-button>
-        <el-button round  @click="FQDN=true">FQDN</el-button>
+        <el-button round  @click="FQND=true">FQND</el-button>
         <el-button round  @click="OS=true">OS</el-button>
       </el-row>
 
@@ -85,18 +86,18 @@
         <el-row>
         <el-button round  @click="RAMbrand=true">RAM brand</el-button>
         <el-button round  @click="MACaddress=true">MAC address</el-button>
-        <el-button round  @click="services++">services({{services}})</el-button>
+        <el-button round  @click="servicesnum++">services({{servicesnum}})</el-button>
         </el-row>
         <br>
         <el-row>
-          <el-button round  @click="usernames++">usernames({{usernames}})</el-button>
-          <el-button round  @click="owners++">owners({{owners}})</el-button>
+          <el-button round  @click="usernamesnum++">usernames({{usernamesnum}})</el-button>
+          <el-button round  @click="ownersnum++">owners({{ownersnum}})</el-button>
           <el-button round  @click="location=true">location</el-button>
           </el-row>
           <br>
 
           <el-row>
-          <el-button round  @click="softwares++">softwares({{softwares}})</el-button>
+          <el-button round  @click="softwaresnum++">softwares({{softwaresnum}})</el-button>
           <el-button round  @click="HDD=true">H.D.D</el-button>
           <el-button round  @click="HDDbrand=true">H.D.D brand</el-button>
           </el-row>
@@ -113,7 +114,7 @@ data() {
   return {
     assetValue: false,
     icon: false,
-    FQDN:false,
+    FQND:false,
     OS:false,
     OSversion:false,
     CPU:false,
@@ -121,114 +122,63 @@ data() {
     RAM:false,
     RAMbrand:false,
     MACaddress:false,
-    services:0,
-    usernames:0,
-    owners:0,
+    servicesnum:0,
+    usernamesnum:0,
+    ownersnum:0,
     location:false,
-    softwares:0,
+    softwaresnum:0,
     HDD:false,
     HDDbrand:false,
-    comp:'dynamic',
-    links: [],
-    state1: '',
-    state2: '',
-
-    ruleForm: {
-      name: '',
-      region: '',
-      date1: '',
-      date2: '',
-      delivery: false,
-      type: [],
-      resource: '',
-      desc: ''
-
+    host: {
+      hostname: '',
+      IP: '',
+      collector: '',
+      assetValue: '',
+      icon: '',
+      FQND: '',
+      OS: '',
+      OSversion: '',
+      CPU: '',
+      CPUbrand: '',
+      RAM: '',
+      RAMbrand: '',
+      MACaddress: '',
+      location: '',
+      HDD: '',
+      HDDbrand: ''
     },
+      services:[],
+      softwares:[],
+      owners:[],
+      usernames:[],
+
     rules: {
       name: [
-        { required: false, message: 'Please input Activity name', trigger: 'blur' },
-        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+        { required: false, trigger: 'blur' },
       ],
-      region: [
-        { required: true, message: 'Please select Activity zone', trigger: 'change' }
-      ],
-      date1: [
-        { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
-      ],
-      date2: [
-        { type: 'date', required: true, message: 'Please pick a time', trigger: 'change' }
-      ],
-      type: [
-            { type: 'array', required: true, message: 'Please select at least one activity type', trigger: 'change' }
-          ],
-          resource: [
-            { required: true, message: 'Please select activity resource', trigger: 'change' }
-          ],
-          desc: [
-            { required: true, message: 'Please input activity form', trigger: 'blur' }
-          ]
-        }
-      };
-    },
+    },}},
     methods: {
-      addelement(){
-        var form= document.createElement("el-form-item");
-        var btn = document.createElement("el-input");
-        document.getElementById("form").appendChild(form);
-        document.getElementById("form").appendChild(btn);
-      },
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-      querySearch(queryString, cb) {
+      submit() {
+        //
+        // console.log(this.host);
+        // console.log(this.services);
+        // console.log(this.softwares);
+        // console.log(this.owners);
+        // console.log(this.usernames);
+        let host= this.host;
+        host.services= this.services;
+        host.softwares= this.softwares;
+        host.usernames= this.usernames;
+        host.owners= this.owners;
+            this.$http.post('/dashboard',host)
+            .then(response=>{
+              console.log(response);
+            }, error =>{
+              console.log(error);
+            });
 
-        var links = [];
-        for (let i = 0; i < this.links.length; i++) {
-          if(!this.links[i].used)
-            {
-              links.push(this.links[i]);
-            }
-        }
-        console.log(links);
-        var results = queryString ? links.filter(this.createFilter(queryString)) : links;
-        // call callback function to return suggestions
-        cb(results);
       },
-      createFilter(queryString) {
-        return (link) => {
-          return (link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
       },
-      loadAll() {
-        return [
-          { "value": "vue", "used": true },
-          { "value": "element", "used": false},
-          { "value": "cooking", "used": false },
-          { "value": "mint-ui", "used": false },
-          { "value": "vuex", "used": false},
-          { "value": "vue-router", "used": false},
-          { "value": "babel", "used": false}
-         ];
-      },
-      handleSelect(item) {
-        console.log(item);
-      }
-    },
-    mounted() {
-      this.links = this.loadAll();
-
-
-    }
 
 }
 

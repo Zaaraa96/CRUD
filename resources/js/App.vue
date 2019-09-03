@@ -1,14 +1,10 @@
 <template>
   <div id="app">
-    <signin />
+    <el-button type="primary" plain @click="selectedComponent='signin'">sign in</el-button>
+    <el-button type="primary" plain @click="selectedComponent='dashboard'">dashboard</el-button>
+    <el-button type="primary" plain @click="selectedComponent='exampleComponent'">add to table</el-button>
     <br>
-    <hr>
-    <br>
-    <dashboard />
-    <br>
-    <hr>
-    <br>
-    <exampleComponent></exampleComponent>
+    <component :is="selectedComponent"> </component>
   </div>
 </template>
 <script>
@@ -21,6 +17,7 @@
     data () {
       return {
         visible: false,
+        selectedComponent:signin,
       }
     },
     components: {

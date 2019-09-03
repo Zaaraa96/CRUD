@@ -17,7 +17,7 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedBigInteger('hostID');
-            $table->string('service');
+            $table->string('service')->nullable();
 
         });
     }
