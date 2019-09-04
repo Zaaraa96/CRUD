@@ -159,12 +159,6 @@ data() {
     },}},
     methods: {
       submit() {
-        //
-        // console.log(this.host);
-        // console.log(this.services);
-        // console.log(this.softwares);
-        // console.log(this.owners);
-        // console.log(this.usernames);
         let host= this.host;
         host.services= this.services;
         host.softwares= this.softwares;

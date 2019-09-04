@@ -23,7 +23,7 @@
     components: {
       exampleComponent,
       signin,
-      dashboard
+      dashboard,
     }
   };
 </script>

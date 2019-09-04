@@ -4228,11 +4228,297 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       data: []
     };
+  },
+  methods: {
+    handleCurrentChange: function handleCurrentChange(row, event, column) {
+      console.log(row, event, column, event.currentTarget);
+    },
+    handleEdit: function handleEdit(index, row) {
+      console.log(row.id);
+    },
+    handlechange: function handlechange(index, row) {
+      var url = "http://localhost:8000/change/";
+      url += row.id;
+      var host = {};
+      host.hostname = row.hostname;
+      host.IP = row.IP;
+      host.collector = row.collector;
+      host.assetValue = row.assetValue;
+      host.icon = row.icon;
+      host.FQND = row.FQND;
+      host.OS = row.OS;
+      host.OSversion = row.OSversion;
+      host.CPU = row.CPU;
+      host.CPUbrand = row.CPUbrand;
+      host.RAM = row.RAM;
+      host.RAMbrand = row.RAMbrand;
+      host.MACaddress = row.MACaddress;
+      host.location = row.location;
+      host.HDD = row.HDD;
+      host.HDDbrand = row.HDDbrand;
+      host.services = row.services.split(",");
+      host.softwares = row.softwares.split(",");
+      host.usernames = row.usernames.split(",");
+      host.owners = row.owners.split(",");
+      console.log(host);
+      this.$http.post(url, host).then(function (response) {
+        console.log(response);
+      }, function (error) {
+        console.log(error);
+      });
+      var table = {};
+      var tableData = [];
+      this.$http.get('/dashboard').then(function (response) {
+        return response;
+      }).then(function (data) {
+        table = data.body; //  console.log(table);
+
+        for (var i = 0; i < table.hosts.length; i++) {
+          tableData.push({
+            id: table.hosts[i].id,
+            hostname: table.hosts[i].hostname,
+            IP: table.hosts[i].ip,
+            collector: table.hosts[i].collector,
+            assetValue: table.hosts[i].assetValue,
+            icon: table.hosts[i].icon,
+            FQND: table.hosts[i].FQND,
+            OS: table.hosts[i].OS,
+            OSversion: table.hosts[i].OSversion,
+            CPU: table.hosts[i].CPU,
+            CPUbrand: table.hosts[i].CPUbrand,
+            RAM: table.hosts[i].RAM,
+            RAMbrand: table.hosts[i].RAMbrand,
+            MACaddress: table.hosts[i].MACaddress,
+            location: table.hosts[i].location,
+            HDD: table.hosts[i].HDD,
+            HDDbrand: table.hosts[i].HDDbrand,
+            services: [],
+            softwares: [],
+            owners: [],
+            usernames: []
+          });
+        }
+
+        var arr = [];
+
+        for (var _i = 0; _i < tableData.length; _i++) {
+          for (var j = 0; j < table.service.length; j++) {
+            if (tableData[_i].id == table.service[j].hostID) {
+              arr.push(table.service[j].service); //tableData[i].services.push(',');
+            }
+          }
+
+          tableData[_i].services = arr.toString();
+          arr = [];
+
+          for (var _j = 0; _j < table.software.length; _j++) {
+            if (tableData[_i].id == table.software[_j].hostID) {
+              arr.push(table.software[_j].software); //tableData[i].softwares.push(',');
+            }
+          }
+
+          tableData[_i].softwares = arr.toString();
+          arr = [];
+
+          for (var _j2 = 0; _j2 < table.owner.length; _j2++) {
+            if (tableData[_i].id == table.owner[_j2].hostID) {
+              arr.push(table.owner[_j2].owner); //tableData[i].owners.push(',');
+            }
+          }
+
+          tableData[_i].owners = arr.toString();
+          arr = [];
+
+          for (var _j3 = 0; _j3 < table.username.length; _j3++) {
+            if (tableData[_i].id == table.username[_j3].hostID) {
+              arr.push(table.username[_j3].username); //tableData[i].usernames.push(',');
+            }
+          }
+
+          tableData[_i].usernames = arr.toString();
+          arr = [];
+        } // for(let i=0; i<tableData.length; i++)
+        // {
+        //   tableData[i].services.pop();
+        //   tableData[i].softwares.pop();
+        //   tableData[i].owners.pop();
+        //   tableData[i].usernames.pop();
+        // }
+
+      });
+      this.data = tableData;
+    },
+    handleDelete: function handleDelete(index, row) {
+      var url = "http://localhost:8000/delete/";
+      url += row.id;
+      this.$http.get(url).then(function (response) {
+        return response;
+      }).then(function (data) {});
+      var table = {};
+      var tableData = [];
+      this.$http.get('/dashboard').then(function (response) {
+        return response;
+      }).then(function (data) {
+        table = data.body; //  console.log(table);
+
+        for (var i = 0; i < table.hosts.length; i++) {
+          tableData.push({
+            id: table.hosts[i].id,
+            hostname: table.hosts[i].hostname,
+            IP: table.hosts[i].ip,
+            collector: table.hosts[i].collector,
+            assetValue: table.hosts[i].assetValue,
+            icon: table.hosts[i].icon,
+            FQND: table.hosts[i].FQND,
+            OS: table.hosts[i].OS,
+            OSversion: table.hosts[i].OSversion,
+            CPU: table.hosts[i].CPU,
+            CPUbrand: table.hosts[i].CPUbrand,
+            RAM: table.hosts[i].RAM,
+            RAMbrand: table.hosts[i].RAMbrand,
+            MACaddress: table.hosts[i].MACaddress,
+            location: table.hosts[i].location,
+            HDD: table.hosts[i].HDD,
+            HDDbrand: table.hosts[i].HDDbrand,
+            services: [],
+            softwares: [],
+            owners: [],
+            usernames: []
+          });
+        }
+
+        var arr = [];
+
+        for (var _i2 = 0; _i2 < tableData.length; _i2++) {
+          for (var j = 0; j < table.service.length; j++) {
+            if (tableData[_i2].id == table.service[j].hostID) {
+              arr.push(table.service[j].service); //tableData[i].services.push(',');
+            }
+          }
+
+          tableData[_i2].services = arr.toString();
+          arr = [];
+
+          for (var _j4 = 0; _j4 < table.software.length; _j4++) {
+            if (tableData[_i2].id == table.software[_j4].hostID) {
+              arr.push(table.software[_j4].software); //tableData[i].softwares.push(',');
+            }
+          }
+
+          tableData[_i2].softwares = arr.toString();
+          arr = [];
+
+          for (var _j5 = 0; _j5 < table.owner.length; _j5++) {
+            if (tableData[_i2].id == table.owner[_j5].hostID) {
+              arr.push(table.owner[_j5].owner); //tableData[i].owners.push(',');
+            }
+          }
+
+          tableData[_i2].owners = arr.toString();
+          arr = [];
+
+          for (var _j6 = 0; _j6 < table.username.length; _j6++) {
+            if (tableData[_i2].id == table.username[_j6].hostID) {
+              arr.push(table.username[_j6].username); //tableData[i].usernames.push(',');
+            }
+          }
+
+          tableData[_i2].usernames = arr.toString();
+          arr = [];
+        } //   for(let i=0; i<tableData.length; i++)
+        //   {
+        //     tableData[i].services.pop();
+        //     tableData[i].softwares.pop();
+        //     tableData[i].owners.pop();
+        //     tableData[i].usernames.pop();
+        //   }
+        //
+
+      });
+      this.data = tableData;
+    }
   },
   mounted: function mounted() {
     //this.resource= this.$resource('/dashboard');
@@ -4269,49 +4555,52 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      for (var _i = 0; _i < tableData.length; _i++) {
+      var arr = [];
+
+      for (var _i3 = 0; _i3 < tableData.length; _i3++) {
         for (var j = 0; j < table.service.length; j++) {
-          if (tableData[_i].id == table.service[j].hostID) {
-            tableData[_i].services.push(table.service[j].service);
-
-            tableData[_i].services.push(',');
+          if (tableData[_i3].id == table.service[j].hostID) {
+            arr.push(table.service[j].service); //tableData[i].services.push(',');
           }
         }
 
-        for (var _j = 0; _j < table.software.length; _j++) {
-          if (tableData[_i].id == table.software[_j].hostID) {
-            tableData[_i].softwares.push(table.software[_j].software);
+        tableData[_i3].services = arr.toString();
+        arr = [];
 
-            tableData[_i].softwares.push(',');
+        for (var _j7 = 0; _j7 < table.software.length; _j7++) {
+          if (tableData[_i3].id == table.software[_j7].hostID) {
+            arr.push(table.software[_j7].software); //tableData[i].softwares.push(',');
           }
         }
 
-        for (var _j2 = 0; _j2 < table.owner.length; _j2++) {
-          if (tableData[_i].id == table.owner[_j2].hostID) {
-            tableData[_i].owners.push(table.owner[_j2].owner);
+        tableData[_i3].softwares = arr.toString();
+        arr = [];
 
-            tableData[_i].owners.push(',');
+        for (var _j8 = 0; _j8 < table.owner.length; _j8++) {
+          if (tableData[_i3].id == table.owner[_j8].hostID) {
+            arr.push(table.owner[_j8].owner); //tableData[i].owners.push(',');
           }
         }
 
-        for (var _j3 = 0; _j3 < table.username.length; _j3++) {
-          if (tableData[_i].id == table.username[_j3].hostID) {
-            tableData[_i].usernames.push(table.username[_j3].username);
+        tableData[_i3].owners = arr.toString();
+        arr = [];
 
-            tableData[_i].usernames.push(',');
+        for (var _j9 = 0; _j9 < table.username.length; _j9++) {
+          if (tableData[_i3].id == table.username[_j9].hostID) {
+            arr.push(table.username[_j9].username); //tableData[i].usernames.push(',');
           }
         }
-      }
 
-      for (var _i2 = 0; _i2 < tableData.length; _i2++) {
-        tableData[_i2].services.pop();
+        tableData[_i3].usernames = arr.toString();
+        arr = [];
+      } // for(let i=0; i<tableData.length; i++)
+      // {
+      //   tableData[i].services.pop();
+      //   tableData[i].softwares.pop();
+      //   tableData[i].owners.pop();
+      //   tableData[i].usernames.pop();
+      // }
 
-        tableData[_i2].softwares.pop();
-
-        tableData[_i2].owners.pop();
-
-        tableData[_i2].usernames.pop();
-      }
     });
     this.data = tableData;
   }
@@ -4489,12 +4778,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
-      //
-      // console.log(this.host);
-      // console.log(this.services);
-      // console.log(this.softwares);
-      // console.log(this.owners);
-      // console.log(this.usernames);
       var host = this.host;
       host.services = this.services;
       host.softwares = this.softwares;
@@ -10989,6 +11272,25 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Add scoped styles */\n#app[data-v-f348271a] {\n  padding: 20px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.tb-edit .el-input {\r\n    display: none;\r\n    height: 115px;\n}\n.tb-edit .current-row .el-input {\r\n    display: block;\r\n    height: 115px;\r\n    padding-top: 41px;\r\n    padding-bottom: 41px;\n}\n.tb-edit .current-row .el-input+span {\r\n    display: none;\r\n    height: 115px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -99015,6 +99317,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/exampleComponent.vue?vue&type=style&index=0&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/exampleComponent.vue?vue&type=style&index=0&lang=css& ***!
@@ -99904,86 +100236,653 @@ var render = function() {
       _c(
         "el-table",
         {
+          staticClass: "tb-edit",
           staticStyle: { width: "100%" },
-          attrs: { data: _vm.data, height: "1250", stripe: "" }
+          attrs: {
+            "highlight-current-row": "",
+            data: _vm.data,
+            height: "1250",
+            stripe: ""
+          },
+          on: { "row-click": _vm.handleCurrentChange }
         },
         [
           _c("el-table-column", {
-            attrs: { prop: "hostname", label: "Host name", width: "110px" }
+            attrs: { prop: "hostname", label: "Host name", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.hostname,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "hostname", $$v)
+                        },
+                        expression: "scope.row.hostname"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.hostname))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "IP", label: "IP address", width: "110px" }
+            attrs: { prop: "IP", label: "IP address", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.IP,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "IP", $$v)
+                        },
+                        expression: "scope.row.IP"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.IP))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "collector", label: "collector", width: "110px" }
+            attrs: { prop: "collector", label: "collector", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.collector,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "collector", $$v)
+                        },
+                        expression: "scope.row.collector"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.collector))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "assetValue", label: "asset Value", width: "110px" }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", { attrs: { prop: "icon", label: "icon" } }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "FQND", label: "FQND", width: "110px" }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "OS", label: "OS", width: "110px" }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "OSversion", label: "OS version", width: "110px" }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "CPU", label: "CPU", width: "110px" }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "CPUbrand", label: "CPU brand", width: "110px" }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "RAM", label: "RAM", width: "110px" }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "RAMbrand", label: "RAM brand", width: "110px" }
+            attrs: { prop: "assetValue", label: "asset Value", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.assetValue,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "assetValue", $$v)
+                        },
+                        expression: "scope.row.assetValue"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.assetValue))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "MACaddress", label: "MAC address", width: "110px" }
+            attrs: { prop: "icon", label: "icon", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.icon,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "icon", $$v)
+                        },
+                        expression: "scope.row.icon"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.icon))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "location", label: "location", width: "110px" }
+            attrs: { prop: "FQND", label: "FQND", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.FQND,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "FQND", $$v)
+                        },
+                        expression: "scope.row.FQND"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.FQND))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "HDD", label: "H.D.D", width: "110px" }
+            attrs: { prop: "OS", label: "OS", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.OS,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "OS", $$v)
+                        },
+                        expression: "scope.row.OS"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.OS))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "HDDbrand", label: "H.D.D brand", width: "110px" }
+            attrs: { prop: "OSversion", label: "OS version", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.OSversion,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "OSversion", $$v)
+                        },
+                        expression: "scope.row.OSversion"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.OSversion))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "services", label: "services", width: "110px" }
+            attrs: { prop: "CPU", label: "CPU", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.CPU,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "CPU", $$v)
+                        },
+                        expression: "scope.row.CPU"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.CPU))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "softwares", label: "softwares", width: "110px" }
+            attrs: { prop: "CPUbrand", label: "CPU brand", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.CPUbrand,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "CPUbrand", $$v)
+                        },
+                        expression: "scope.row.CPUbrand"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.CPUbrand))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "owners", label: "owners", width: "110px" }
+            attrs: { prop: "RAM", label: "RAM", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.RAM,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "RAM", $$v)
+                        },
+                        expression: "scope.row.RAM"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.RAM))])
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "usernames", label: "user names", width: "110px" }
+            attrs: { prop: "RAMbrand", label: "RAM brand", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.RAMbrand,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "RAMbrand", $$v)
+                        },
+                        expression: "scope.row.RAMbrand"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.RAMbrand))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "MACaddress", label: "MAC address", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.MACaddress,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "MACaddress", $$v)
+                        },
+                        expression: "scope.row.MACaddress"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.MACaddress))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "location", label: "location", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.location,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "location", $$v)
+                        },
+                        expression: "scope.row.location"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.location))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "HDD", label: "H.D.D", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.HDD,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "HDD", $$v)
+                        },
+                        expression: "scope.row.HDD"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.HDD))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "HDDbrand", label: "H.D.D brand", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.HDDbrand,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "HDDbrand", $$v)
+                        },
+                        expression: "scope.row.HDDbrand"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.HDDbrand))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "services", label: "services", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.services,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "services", $$v)
+                        },
+                        expression: "scope.row.services"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.services))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "softwares", label: "softwares", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.softwares,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "softwares", $$v)
+                        },
+                        expression: "scope.row.softwares"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.softwares))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "owners", label: "owners", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.owners,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "owners", $$v)
+                        },
+                        expression: "scope.row.owners"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.owners))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "usernames", label: "user names", width: "110px" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("el-input", {
+                      attrs: { size: "small" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleEdit(scope.$index, scope.row)
+                        }
+                      },
+                      model: {
+                        value: scope.row.usernames,
+                        callback: function($$v) {
+                          _vm.$set(scope.row, "usernames", $$v)
+                        },
+                        expression: "scope.row.usernames"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(scope.row.usernames))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "Operations", width: "250px", fixed: "right" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { size: "mini", type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.handlechange(scope.$index, scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("submit changes")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { size: "mini", type: "danger" },
+                        on: {
+                          click: function($event) {
+                            return _vm.handleDelete(scope.$index, scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ]
+                }
+              }
+            ])
           })
         ],
         1
@@ -114740,7 +115639,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dashboard.vue?vue&type=template&id=57220a4e& */ "./resources/js/components/dashboard.vue?vue&type=template&id=57220a4e&");
 /* harmony import */ var _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dashboard.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -114748,7 +115649,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__["render"],
   _dashboard_vue_vue_type_template_id_57220a4e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -114777,6 +115678,22 @@ component.options.__file = "resources/js/components/dashboard.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
