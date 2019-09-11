@@ -445,7 +445,7 @@
                                   hostname: table.hosts[i].hostname,
                                   IP: table.hosts[i].ip,
                                   collector: table.hosts[i].collector,
-                                  assetValue: table.hosts[i].hostname,
+                                  assetValue: table.hosts[i].assetValue,
                                   icon: table.hosts[i].icon,
                                   FQND: table.hosts[i].FQND,
                                   OS: table.hosts[i].OS,

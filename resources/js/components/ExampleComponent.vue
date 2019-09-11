@@ -1,32 +1,37 @@
 <template>
     <el-row :gutter="20">
        <el-col :span="8" :offset="4">
-      <el-form  :rules="rules" label-width="120px" class="demo-ruleForm">
-        <el-form-item label="host name" prop="hostname">
+      <el-form label-width="120px" class="demo-ruleForm">
 
-        <el-input v-model="host.hostname"></el-input></el-form-item>
-        <el-form-item label="IP" prop="IP">
+        <el-form-item label="host name" prop="hostname" :class="{invalid: $v.host.hostname.$error}">
+        <el-input v-model="host.hostname" @blur="$v.host.hostname.$touch()"></el-input>
+      <p v-if="$v.host.hostname.$error"> you have to enter a hostname</p></el-form-item>
 
-        <el-input v-model="host.IP"></el-input></el-form-item>
+        <el-form-item label="IP" prop="IP" >
+
+        <el-input v-model="host.IP" @blur="$v.host.IP.$touch()"></el-input>
+      <p v-if="$v.host.IP.$error" :class="{invalid: $v.host.IP.$error}"> you have to enter a valid IP address</p></el-form-item>
         <el-form-item label="collector" prop="collector">
 
         <el-input v-model="host.collector"></el-input></el-form-item>
 
-        <el-form-item label="asset value" prop="assetValue"   v-if="assetValue">
+        <el-form-item label="asset value" prop="assetValue" v-if="assetValue">
 
         <el-input v-model="host.assetValue"></el-input></el-form-item>
-        <el-form-item label="icon" prop="icon"   v-if="icon">
+        <el-form-item label="icon" prop="icon"   v-if="icon" >
 
-        <el-input v-model="host.icon"></el-input></el-form-item>
+        <el-input v-model="host.icon" @blur="$v.host.icon.$touch()"></el-input>
+      <p v-if="$v.host.icon.$error" :class="{invalid: $v.host.icon.$error}"> you have to enter a valid url</p></el-form-item>
         <el-form-item label="FQND" prop="FQND"   v-if="FQND">
 
         <el-input v-model="host.FQND"></el-input></el-form-item>
         <el-form-item label="OS" prop="OS"   v-if="OS">
 
         <el-input v-model="host.OS"></el-input></el-form-item>
-        <el-form-item label="OS version" prop="OSversion"   v-if="OSversion">
+        <el-form-item label="OS version" prop="OSversion"   v-if="OSversion" >
 
-        <el-input v-model="host.OSversion"></el-input></el-form-item>
+        <el-input v-model="host.OSversion" @blur="$v.host.OSversion.$touch()"></el-input>
+      <p v-if="$v.host.OSversion.$error" :class="{invalid: $v.host.OSversion.$error}"> you have to enter a number</p></el-form-item>
         <el-form-item label="CPU" prop="CPU"   v-if="CPU">
 
         <el-input v-model="host.CPU"></el-input></el-form-item>
@@ -41,7 +46,8 @@
         <el-input v-model="host.RAMbrand"></el-input></el-form-item>
         <el-form-item label="MAC address" prop="MACaddress"   v-if="MACaddress">
 
-        <el-input v-model="host.MACaddress"></el-input></el-form-item>
+        <el-input v-model="host.MACaddress" @blur="$v.host.MACaddress.$touch()"></el-input>
+      <p v-if="$v.host.MACaddress.$error" :class="{invalid: $v.host.MACaddress.$error}"> you have to enter a valid MAC address</p></el-form-item>
         <el-form-item label="service" prop="service"   v-for="(service,index) in servicesnum">
 
         <el-input v-model="services[index]"></el-input></el-form-item>
@@ -64,7 +70,7 @@
 
         <el-input v-model="host.HDDbrand"></el-input></el-form-item>
 
-        <el-button type="primary" @click="submit">Submit</el-button>
+        <el-button type="primary" @click="submit" :disabled="$v.$invalid">Submit</el-button>
       </el-form>
       </el-col>
       <el-col :span="8">
@@ -108,6 +114,7 @@
 </template>
 
 <script>
+import {required,numeric,ipAddress,macAddress,url} from 'vuelidate/lib/validators';
 export default {
 
 data() {
@@ -152,11 +159,27 @@ data() {
       owners:[],
       usernames:[],
 
-    rules: {
-      name: [
-        { required: false, trigger: 'blur' },
-      ],
-    },}},
+    }},
+    validations: {
+      host:{
+        hostname: {
+          required,
+        },
+        IP:{
+          ipAddress,
+        },
+        icon: {
+          url,
+        },
+        OSversion: {
+          numeric,
+        },
+        MACaddress: {
+          macAddress:macAddress(':'),
+        },
+      },
+
+    },
     methods: {
       submit() {
         let host= this.host;
@@ -188,5 +211,7 @@ data() {
     width: 30%;
     display: inline-block;
   }
-
+  .invalid{
+    color: red;
+  }
 </style>
