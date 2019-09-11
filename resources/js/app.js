@@ -37,5 +37,5 @@ window.Vue = require('vue');
 Vue.http.options.root= 'localhost:8000';
  const app = new Vue({
    el: '#app',
-   render: h => h(App),
+   render: h => h(App)
  });

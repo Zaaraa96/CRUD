@@ -204,7 +204,7 @@
 
       },
       handlechange(index, row){
-        let url= "http://localhost:8000/change/";
+        let url= "http://localhost:8000/api/change/";
         url+= row.id;
         let host={};
         host.hostname= row.hostname;
@@ -236,7 +236,7 @@
         });
         let table={};
         let tableData= [];
-        this.$http.get('/dashboard')
+        this.$http.get('/api/dashboard')
         .then(response=>{
           return response;
         })
@@ -327,7 +327,7 @@
 
       },
       handleDelete(index, row) {
-        let url= "http://localhost:8000/delete/";
+        let url= "http://localhost:8000/api/delete/";
         url+= row.id;
         this.$http.get(url)
         .then(response=>{
@@ -337,7 +337,7 @@
         });
         let table={};
         let tableData= [];
-        this.$http.get('/dashboard')
+        this.$http.get('/api/dashboard')
         .then(response=>{
           return response;
         })
@@ -433,11 +433,9 @@
 
                 let table={};
                 let tableData= [];
-                this.$http.get('/dashboard')
-                .then(response=>{
-                  return response;
-                })
-                .then(data=> {
+                this.$http.get('/api/dashboard')
+                .then(data=>{
+                  console.log(data);
                   table=data.body;
                 //  console.log(table);
                   for(let i=0; i<table.hosts.length; i++)
@@ -517,6 +515,9 @@
                   //   tableData[i].owners.pop();
                   //   tableData[i].usernames.pop();
                   // }
+                })
+                .then(data=> {
+
 
                 });
                 this.data= tableData;
@@ -534,7 +535,7 @@
     display: block;
     height: 115px;
     padding-top: 41px;
-    padding-bottom: 41px;
+    padding-bottom: 41;
 }
 .tb-edit .current-row .el-input+span {
     display: none;

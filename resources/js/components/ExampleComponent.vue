@@ -164,7 +164,7 @@ data() {
         host.softwares= this.softwares;
         host.usernames= this.usernames;
         host.owners= this.owners;
-            this.$http.post('/dashboard',host)
+            this.$http.post('/api/dashboard',host)
             .then(response=>{
               console.log(response);
             }, error =>{

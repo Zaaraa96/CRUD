@@ -4094,7 +4094,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       visible: false,
-      selectedComponent: _components_signin_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+      selectedComponent: _components_exampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
     };
   },
   components: {
@@ -4319,7 +4319,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(row.id);
     },
     handlechange: function handlechange(index, row) {
-      var url = "http://localhost:8000/change/";
+      var url = "http://localhost:8000/api/change/";
       url += row.id;
       var host = {};
       host.hostname = row.hostname;
@@ -4350,7 +4350,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       var table = {};
       var tableData = [];
-      this.$http.get('/dashboard').then(function (response) {
+      this.$http.get('/api/dashboard').then(function (response) {
         return response;
       }).then(function (data) {
         table = data.body; //  console.log(table);
@@ -4431,14 +4431,14 @@ __webpack_require__.r(__webpack_exports__);
       this.data = tableData;
     },
     handleDelete: function handleDelete(index, row) {
-      var url = "http://localhost:8000/delete/";
+      var url = "http://localhost:8000/api/delete/";
       url += row.id;
       this.$http.get(url).then(function (response) {
         return response;
       }).then(function (data) {});
       var table = {};
       var tableData = [];
-      this.$http.get('/dashboard').then(function (response) {
+      this.$http.get('/api/dashboard').then(function (response) {
         return response;
       }).then(function (data) {
         table = data.body; //  console.log(table);
@@ -4524,9 +4524,8 @@ __webpack_require__.r(__webpack_exports__);
     //this.resource= this.$resource('/dashboard');
     var table = {};
     var tableData = [];
-    this.$http.get('/dashboard').then(function (response) {
-      return response;
-    }).then(function (data) {
+    this.$http.get('/api/dashboard').then(function (data) {
+      console.log(data);
       table = data.body; //  console.log(table);
 
       for (var i = 0; i < table.hosts.length; i++) {
@@ -4601,7 +4600,7 @@ __webpack_require__.r(__webpack_exports__);
       //   tableData[i].usernames.pop();
       // }
 
-    });
+    }).then(function (data) {});
     this.data = tableData;
   }
 });
@@ -4783,7 +4782,7 @@ __webpack_require__.r(__webpack_exports__);
       host.softwares = this.softwares;
       host.usernames = this.usernames;
       host.owners = this.owners;
-      this.$http.post('/dashboard', host).then(function (response) {
+      this.$http.post('/api/dashboard', host).then(function (response) {
         console.log(response);
       }, function (error) {
         console.log(error);
@@ -11290,7 +11289,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tb-edit .el-input {\r\n    display: none;\r\n    height: 115px;\n}\n.tb-edit .current-row .el-input {\r\n    display: block;\r\n    height: 115px;\r\n    padding-top: 41px;\r\n    padding-bottom: 41px;\n}\n.tb-edit .current-row .el-input+span {\r\n    display: none;\r\n    height: 115px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tb-edit .el-input {\r\n    display: none;\r\n    height: 115px;\n}\n.tb-edit .current-row .el-input {\r\n    display: block;\r\n    height: 115px;\r\n    padding-top: 41px;\r\n    padding-bottom: 41;\n}\n.tb-edit .current-row .el-input+span {\r\n    display: none;\r\n    height: 115px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -100162,19 +100161,6 @@ var render = function() {
     "div",
     { attrs: { id: "app" } },
     [
-      _c(
-        "el-button",
-        {
-          attrs: { type: "primary", plain: "" },
-          on: {
-            click: function($event) {
-              _vm.selectedComponent = "signin"
-            }
-          }
-        },
-        [_vm._v("sign in")]
-      ),
-      _vm._v(" "),
       _c(
         "el-button",
         {
