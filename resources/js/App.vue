@@ -1,10 +1,10 @@
 <template>
   <div id="app">
 
-    <el-button type="primary" plain @click="selectedComponent='dashboard'">dashboard</el-button>
-    <el-button type="primary" plain @click="selectedComponent='exampleComponent'">add to table</el-button>
+    <router-link to='/dashboard'><el-button type="primary" plain> dashboard</el-button></router-link>
+    <router-link to='/add'><el-button type="primary" plain >add to table</el-button></router-link>
     <br>
-    <component :is="selectedComponent"> </component>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -17,7 +17,7 @@
     data () {
       return {
         visible: false,
-        selectedComponent:exampleComponent,
+        selectedComponent:dashboard,
       }
     },
     components: {

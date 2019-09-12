@@ -70,7 +70,9 @@
 
         <el-input v-model="host.HDDbrand"></el-input></el-form-item>
 
-        <el-button type="primary" @click="submit" :disabled="$v.$invalid">Submit</el-button>
+        <el-button type="primary" @click="submit" :disabled="$v.$invalid">
+          Submit</el-button>
+
       </el-form>
       </el-col>
       <el-col :span="8">
@@ -193,7 +195,7 @@ data() {
             }, error =>{
               console.log(error);
             });
-
+        window.location.replace("http://localhost:8000/dashboard");
       },
       },
 

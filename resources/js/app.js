@@ -32,12 +32,20 @@ window.Vue = require('vue');
  import 'element-ui/lib/theme-chalk/index.css';
  import VueResource from 'vue-resource';
  import Vuelidate from 'vuelidate';
-
+ import VueRouter from 'vue-router';
+ import { routes } from './routes';
  Vue.use(ElementUI);
  Vue.use(VueResource);
  Vue.use(Vuelidate);
+ Vue.use(VueRouter);
 Vue.http.options.root= 'localhost:8000';
+const router = new VueRouter({
+                routes,
+                mode: 'history'
+              });
+
  const app = new Vue({
    el: '#app',
+   router,
    render: h => h(App)
  });

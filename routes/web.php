@@ -17,7 +17,9 @@ use Illuminate\Http\Request;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::middleware('auth')->get('/', function () {
     return view('welcome');
 });
+Route::middleware('auth')->get('/{any}', function ($any) {
+    return view('welcome');
+})->where('any', '.*');
