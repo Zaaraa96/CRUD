@@ -250,101 +250,68 @@
       },
 
     mounted() {
-        //this.resource= this.$resource('/dashboard');
-
                 let table={};
                 let tableData= [];
                 this.$http.get('/api/dashboard')
                 .then(data=>{
                   console.log(data);
                   table=data.body;
-                //  console.log(table);
-                  for(let i=0; i<table.hosts.length; i++)
+                  for(let i=0; i<table.length; i++)
                   {
                     tableData.push({
-                                  id: table.hosts[i].id,
-                                  hostname: table.hosts[i].hostname,
-                                  IP: table.hosts[i].ip,
-                                  collector: table.hosts[i].collector,
-                                  assetValue: table.hosts[i].assetValue,
-                                  icon: table.hosts[i].icon,
-                                  FQND: table.hosts[i].FQND,
-                                  OS: table.hosts[i].OS,
-                                  OSversion: table.hosts[i].OSversion,
-                                  CPU: table.hosts[i].CPU,
-                                  CPUbrand: table.hosts[i].CPUbrand,
-                                  RAM: table.hosts[i].RAM,
-                                  RAMbrand: table.hosts[i].RAMbrand,
-                                  MACaddress: table.hosts[i].MACaddress,
-                                  location: table.hosts[i].location,
-                                  HDD: table.hosts[i].HDD,
-                                  HDDbrand: table.hosts[i].HDDbrand,
+                                  id: table[i].id,
+                                  hostname: table[i].hostname,
+                                  IP: table[i].ip,
+                                  collector: table[i].collector,
+                                  assetValue: table[i].assetValue,
+                                  icon: table[i].icon,
+                                  FQND: table[i].FQND,
+                                  OS: table[i].OS,
+                                  OSversion: table[i].OSversion,
+                                  CPU: table[i].CPU,
+                                  CPUbrand: table[i].CPUbrand,
+                                  RAM: table[i].RAM,
+                                  RAMbrand: table[i].RAMbrand,
+                                  MACaddress: table[i].MACaddress,
+                                  location: table[i].location,
+                                  HDD: table[i].HDD,
+                                  HDDbrand: table[i].HDDbrand,
                                   services:[],
                                   softwares:[],
                                   owners:[],
                                   usernames:[]
                                 });
-                  }
-                  let arr=[];
-                  for(let i=0; i<tableData.length; i++)
-                  {
-                    for (let j=0; j<table.service.length; j++)
+                      let arr=[];
+                      for(let j=0; j<table[i].services.length; j++)
                       {
-                        if(tableData[i].id==table.service[j].hostID)
-                          {
-                            arr.push(table.service[j].service);
-                            //tableData[i].services.push(',');
-                          }
+                        arr[j]=table[i].services[j].service;
                       }
-                      tableData[i].services= arr.toString();
+                      tableData[i].services=arr.toString();
                       arr=[];
-                    for (let j=0; j<table.software.length; j++)
-                        {
-                          if(tableData[i].id==table.software[j].hostID)
-                            {
-                              arr.push(table.software[j].software);
-                              //tableData[i].softwares.push(',');
-                            }
-                        }
-                        tableData[i].softwares= arr.toString();
-                        arr=[];
-                    for (let j=0; j<table.owner.length; j++)
-                          {
-                            if(tableData[i].id==table.owner[j].hostID)
-                              {
-                                arr.push(table.owner[j].owner);
-                                //tableData[i].owners.push(',');
-                              }
-                          }
-                          tableData[i].owners= arr.toString();
-                          arr=[];
-                    for (let j=0; j<table.username.length; j++)
-                            {
-                              if(tableData[i].id==table.username[j].hostID)
-                                {
-                                  arr.push(table.username[j].username);
-                                  //tableData[i].usernames.push(',');
-                                }
-                            }
-                            tableData[i].usernames= arr.toString();
-                            arr=[];
+                      for(let j=0; j<table[i].softwares.length; j++)
+                      {
+                        arr[j]=table[i].softwares[j].software;
+                      }
+                      tableData[i].softwares=arr.toString();
+                      arr=[];
+                      for(let j=0; j<table[i].owners.length; j++)
+                      {
+                        arr[j]=table[i].owners[j].owner;
+                      }
+                      tableData[i].owners=arr.toString();
+                      arr=[];
+                      for(let j=0; j<table[i].usernames.length; j++)
+                      {
+                        arr[j]=table[i].usernames[j].username;
+                      }
+                      tableData[i].usernames=arr.toString();
+                      arr=[];
                   }
-                  // for(let i=0; i<tableData.length; i++)
-                  // {
-                  //   tableData[i].services.pop();
-                  //   tableData[i].softwares.pop();
-                  //   tableData[i].owners.pop();
-                  //   tableData[i].usernames.pop();
-                  // }
                 })
                 .then(data=> {
-
-
                 });
                 this.data= tableData;
       },
-
-
   }
 </script>
 <style >

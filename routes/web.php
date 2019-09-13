@@ -17,6 +17,10 @@ use Illuminate\Http\Request;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/redis',function(){
+  $thisredis=Redis::lrange('user1',0,-1);
+  return $thisredis;
+});
 Route::middleware('auth')->get('/', function () {
     return view('welcome');
 });

@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Redis;
 class HostController extends Controller
 {
     public function index(){
       $hosts=\App\host::all();
-      $owner=\App\owner::all();
-      $service=\App\service::all();
-      $software=\App\software::all();
-      $username=\App\username::all();
-      $c=compact('hosts','owner','service','software','username');
-      return $c;
+      // $i=0;
+      // $hostwithservice=[];
+      foreach ($hosts as $host) {
+        $services=$host->services;
+        $owners=$host->owners;
+        $softwares=$host->softwares;
+        $usernames=$host->usernames;
+      }
+      Redis::lpush('user1' ,'read');
+      return $hosts;
     }
     public function add(){
       $this->validate(request(),[
@@ -87,6 +91,7 @@ class HostController extends Controller
         $username->save();
       endforeach;
 
+      Redis::lpush('user1' ,'create');
       //check
       // public function store() {
       //
@@ -104,6 +109,7 @@ class HostController extends Controller
       $service=\App\service::where('hostID',$id)->delete();
       $software=\App\software::where('hostID',$id)->delete();
       $username=\App\username::where('hostID',$id)->delete();
+      Redis::lpush('user1' ,'delete');
     }
     public function change($id){
       $this->validate(request(),[
@@ -180,6 +186,6 @@ class HostController extends Controller
         $username->username=$value;
         $username->save();
       endforeach;
-
+      Redis::lpush('user1' ,'change');
     }
 }

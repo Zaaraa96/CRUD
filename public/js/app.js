@@ -4571,85 +4571,66 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    //this.resource= this.$resource('/dashboard');
     var table = {};
     var tableData = [];
     this.$http.get('/api/dashboard').then(function (data) {
       console.log(data);
-      table = data.body; //  console.log(table);
+      table = data.body;
 
-      for (var i = 0; i < table.hosts.length; i++) {
+      for (var i = 0; i < table.length; i++) {
         tableData.push({
-          id: table.hosts[i].id,
-          hostname: table.hosts[i].hostname,
-          IP: table.hosts[i].ip,
-          collector: table.hosts[i].collector,
-          assetValue: table.hosts[i].assetValue,
-          icon: table.hosts[i].icon,
-          FQND: table.hosts[i].FQND,
-          OS: table.hosts[i].OS,
-          OSversion: table.hosts[i].OSversion,
-          CPU: table.hosts[i].CPU,
-          CPUbrand: table.hosts[i].CPUbrand,
-          RAM: table.hosts[i].RAM,
-          RAMbrand: table.hosts[i].RAMbrand,
-          MACaddress: table.hosts[i].MACaddress,
-          location: table.hosts[i].location,
-          HDD: table.hosts[i].HDD,
-          HDDbrand: table.hosts[i].HDDbrand,
+          id: table[i].id,
+          hostname: table[i].hostname,
+          IP: table[i].ip,
+          collector: table[i].collector,
+          assetValue: table[i].assetValue,
+          icon: table[i].icon,
+          FQND: table[i].FQND,
+          OS: table[i].OS,
+          OSversion: table[i].OSversion,
+          CPU: table[i].CPU,
+          CPUbrand: table[i].CPUbrand,
+          RAM: table[i].RAM,
+          RAMbrand: table[i].RAMbrand,
+          MACaddress: table[i].MACaddress,
+          location: table[i].location,
+          HDD: table[i].HDD,
+          HDDbrand: table[i].HDDbrand,
           services: [],
           softwares: [],
           owners: [],
           usernames: []
         });
+        var arr = [];
+
+        for (var j = 0; j < table[i].services.length; j++) {
+          arr[j] = table[i].services[j].service;
+        }
+
+        tableData[i].services = arr.toString();
+        arr = [];
+
+        for (var _j = 0; _j < table[i].softwares.length; _j++) {
+          arr[_j] = table[i].softwares[_j].software;
+        }
+
+        tableData[i].softwares = arr.toString();
+        arr = [];
+
+        for (var _j2 = 0; _j2 < table[i].owners.length; _j2++) {
+          arr[_j2] = table[i].owners[_j2].owner;
+        }
+
+        tableData[i].owners = arr.toString();
+        arr = [];
+
+        for (var _j3 = 0; _j3 < table[i].usernames.length; _j3++) {
+          arr[_j3] = table[i].usernames[_j3].username;
+        }
+
+        tableData[i].usernames = arr.toString();
+        arr = [];
       }
-
-      var arr = [];
-
-      for (var _i = 0; _i < tableData.length; _i++) {
-        for (var j = 0; j < table.service.length; j++) {
-          if (tableData[_i].id == table.service[j].hostID) {
-            arr.push(table.service[j].service); //tableData[i].services.push(',');
-          }
-        }
-
-        tableData[_i].services = arr.toString();
-        arr = [];
-
-        for (var _j = 0; _j < table.software.length; _j++) {
-          if (tableData[_i].id == table.software[_j].hostID) {
-            arr.push(table.software[_j].software); //tableData[i].softwares.push(',');
-          }
-        }
-
-        tableData[_i].softwares = arr.toString();
-        arr = [];
-
-        for (var _j2 = 0; _j2 < table.owner.length; _j2++) {
-          if (tableData[_i].id == table.owner[_j2].hostID) {
-            arr.push(table.owner[_j2].owner); //tableData[i].owners.push(',');
-          }
-        }
-
-        tableData[_i].owners = arr.toString();
-        arr = [];
-
-        for (var _j3 = 0; _j3 < table.username.length; _j3++) {
-          if (tableData[_i].id == table.username[_j3].hostID) {
-            arr.push(table.username[_j3].username); //tableData[i].usernames.push(',');
-          }
-        }
-
-        tableData[_i].usernames = arr.toString();
-        arr = [];
-      } // for(let i=0; i<tableData.length; i++)
-      // {
-      //   tableData[i].services.pop();
-      //   tableData[i].softwares.pop();
-      //   tableData[i].owners.pop();
-      //   tableData[i].usernames.pop();
-      // }
-
     }).then(function (data) {});
     this.data = tableData;
   }
@@ -121573,15 +121554,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./resources/js/components/exampleComponent.vue ***!
   \******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _exampleComponent_vue_vue_type_template_id_1dd8ef7e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./exampleComponent.vue?vue&type=template&id=1dd8ef7e& */ "./resources/js/components/exampleComponent.vue?vue&type=template&id=1dd8ef7e&");
 /* harmony import */ var _exampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./exampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/exampleComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _exampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _exampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _exampleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./exampleComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/exampleComponent.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _exampleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./exampleComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/exampleComponent.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -121613,7 +121593,7 @@ component.options.__file = "resources/js/components/exampleComponent.vue"
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/exampleComponent.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
