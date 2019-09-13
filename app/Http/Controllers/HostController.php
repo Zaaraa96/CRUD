@@ -1,11 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-
+Use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 class HostController extends Controller
 {
+  public function redis(){
+    $thisredis=[];
+
+    $userid = Auth::id();
+    $user="user".(string)$userid;
+    Redis::lpush($user ,'redisCall');
+    //return Redis::lrange($user,0,-1);
+    $users= Redis::keys('*');
+    //return $users[0];
+    foreach ($users as $user) {
+      $id2=substr($user,17);
+      array_push($thisredis,Redis::lrange($id2,0,-1));
+    }
+
+    return $thisredis;
+  }
     public function index(){
       $hosts=\App\host::all();
       // $i=0;
@@ -16,7 +33,9 @@ class HostController extends Controller
         $softwares=$host->softwares;
         $usernames=$host->usernames;
       }
-      Redis::lpush('user1' ,'read');
+      $userid = Auth::id();
+      $user="user".(string)$userid;
+      Redis::lpush($user ,'read');
       return $hosts;
     }
     public function add(){
@@ -91,7 +110,9 @@ class HostController extends Controller
         $username->save();
       endforeach;
 
-      Redis::lpush('user1' ,'create');
+      $userid = Auth::id();
+      $user="user".(string)$userid;
+      Redis::lpush($user ,'create');
       //check
       // public function store() {
       //
@@ -109,7 +130,9 @@ class HostController extends Controller
       $service=\App\service::where('hostID',$id)->delete();
       $software=\App\software::where('hostID',$id)->delete();
       $username=\App\username::where('hostID',$id)->delete();
-      Redis::lpush('user1' ,'delete');
+      $userid = Auth::id();
+      $user="user".(string)$userid;
+      Redis::lpush($user ,'delete');
     }
     public function change($id){
       $this->validate(request(),[
@@ -186,6 +209,8 @@ class HostController extends Controller
         $username->username=$value;
         $username->save();
       endforeach;
-      Redis::lpush('user1' ,'change');
+      $userid = Auth::id();
+      $user="user".(string)$userid;
+      Redis::lpush($user ,'change');
     }
 }

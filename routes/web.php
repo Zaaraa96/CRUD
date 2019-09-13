@@ -12,15 +12,13 @@
 */
 Use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/redis',function(){
-  $thisredis=Redis::lrange('user1',0,-1);
-  return $thisredis;
-});
+Route::get('/redis','HostController@redis');
 Route::middleware('auth')->get('/', function () {
     return view('welcome');
 });
