@@ -2,22 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+Use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    //
-    /**
-     * Show the profile for the given user.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    // public function showProfile($id)
+    public function login(Request $request)
+    {
+        // Validation Data
+        $validData = $this->validate($request, [
+           'email' => 'required|exists:users',
+           'password' => 'required'
+        ]);
+
+        // Check Login User
+        if(! auth()->attempt($validData)) {
+            return response([
+                'data' => 'input data is not correct',
+                'status' => 'error'
+            ],403);
+        }
+        $userid = Auth::user();
+        //return $userid->api_token;
+        //return (auth()->user());
+    }
+
+    // public function register(Request $request)
     // {
-    //     $user = Redis::get('user:profile:'.$id);
+    //     // Validation Data
+    //     $validData = $this->validate($request, [
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|string|email|max:255|unique:users',
+    //         'password' => 'required|string|min:6',
+    //     ]);
     //
-    //     return view('user.profile', ['user' => $user]);
+    //     $user = User::create([
+    //         'name' => $validData['name'],
+    //         'email' => $validData['email'],
+    //         'password' => bcrypt($validData['password']),
+    //     ]);
+    //
+    //     return new UserResource($user);
     // }
 }

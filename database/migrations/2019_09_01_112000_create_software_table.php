@@ -16,7 +16,7 @@ class CreateSoftwareTable extends Migration
         Schema::create('software', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->unsignedBigInteger('hostID');
+            $table->unsignedBigInteger('hostID')->references('id')->on('hosts')->onDelete('cascade');
             $table->string('software')->nullable();
         });
     }

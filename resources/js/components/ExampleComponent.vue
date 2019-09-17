@@ -195,7 +195,7 @@ data() {
             }, error =>{
               console.log(error);
             });
-        window.location.replace("http://localhost:8000/dashboard");
+        //window.location.replace("http://localhost:8000/dashboard");
       },
       },
 

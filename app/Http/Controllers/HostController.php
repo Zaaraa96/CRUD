@@ -5,6 +5,7 @@ Use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Gate;
 class HostController extends Controller
 {
   public function redis(){
@@ -36,31 +37,45 @@ class HostController extends Controller
       $userid = Auth::id();
       $user="user".(string)$userid;
       Redis::lpush($user ,'read');
+      //Redis::lpush($user ,$userid);
       return $hosts;
     }
     public function add(){
-      $this->validate(request(),[
-        'hostname'=> 'required',
-        'IP'=>'Nullable|ip',
-        'collector'=>'Nullable',
-        'assetValue'=>'Nullable',
-        'icon'=>'Nullable|url',
-        'FQND'=>'Nullable',
-        'OS'=>'Nullable',
-        'OSversion'=>'Nullable|numeric',
-        'CPU'=>'Nullable',
-        'CPUbrand'=>'Nullable',
-        'RAM'=>'Nullable',
-        'RAMbrand'=>'Nullable',
-        'MACaddress'=>'Nullable|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
-        'location'=>'Nullable',
-        'HDD'=>'Nullable',
-        'HDDbrand'=>'Nullable',
-        'owners'=>'Nullable|array',
-        'softwares'=>'Nullable|array',
-        'services'=>'Nullable|array',
-        'usernames'=>'Nullable|array',
-      ]);
+      $user=request('user');
+      $userid = $user.id;
+      $user="user".(string)$userid;
+      Redis::lpush($user ,'create');
+      // $this->validate(request(),[
+      //   'hostname'=> 'required',
+      //   'IP'=>'Nullable|ip',
+      //   'collector'=>'Nullable',
+      //   'assetValue'=>'Nullable',
+      //   'icon'=>'Nullable|url',
+      //   'FQND'=>'Nullable',
+      //   'OS'=>'Nullable',
+      //   'OSversion'=>'Nullable|numeric',
+      //   'CPU'=>'Nullable',
+      //   'CPUbrand'=>'Nullable',
+      //   'RAM'=>'Nullable',
+      //   'RAMbrand'=>'Nullable',
+      //   'MACaddress'=>'Nullable|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+      //   'location'=>'Nullable',
+      //   'HDD'=>'Nullable',
+      //   'HDDbrand'=>'Nullable',
+      //   'owners'=>'Nullable|array',
+      //   'softwares'=>'Nullable|array',
+      //   'services'=>'Nullable|array',
+      //   'usernames'=>'Nullable|array',
+      // ]);
+      // if($validator->fails()){
+      //     return response([
+      //     'data' => [
+      //     'message' => $valiator->errors()
+      //     ],
+      //     'status' => 'error'
+      //     ], 422);
+      // }
+
       $host= new \App\host;
       $host->hostname=request('hostname');
       $host->ip=request('IP');
@@ -110,9 +125,7 @@ class HostController extends Controller
         $username->save();
       endforeach;
 
-      $userid = Auth::id();
-      $user="user".(string)$userid;
-      Redis::lpush($user ,'create');
+
       //check
       // public function store() {
       //
@@ -125,14 +138,19 @@ class HostController extends Controller
 
     }
     public function delete($id){
-      $hosts=\App\host::where('id',$id)->delete();
-      $owner=\App\owner::where('hostID',$id)->delete();
-      $service=\App\service::where('hostID',$id)->delete();
-      $software=\App\software::where('hostID',$id)->delete();
-      $username=\App\username::where('hostID',$id)->delete();
-      $userid = Auth::id();
-      $user="user".(string)$userid;
-      Redis::lpush($user ,'delete');
+
+     if(Gate::allows('updatedelete')){
+        $hosts=\App\host::where('id',$id)->delete();
+        $owner=\App\owner::where('hostID',$id)->delete();
+        $service=\App\service::where('hostID',$id)->delete();
+        $software=\App\software::where('hostID',$id)->delete();
+        $username=\App\username::where('hostID',$id)->delete();
+        $userid = Auth::id();
+        $user="user".(string)$userid;
+        Redis::lpush($user ,'delete');
+     }
+      abort(403,'not-access');
+
     }
     public function change($id){
       $this->validate(request(),[
@@ -157,6 +175,14 @@ class HostController extends Controller
         'services'=>'Nullable|array',
         'usernames'=>'Nullable|array',
       ]);
+      if($validator->fails()){
+          return response([
+          'data' => [
+          'message' => $valiator->errors()
+          ],
+          'status' => 'error'
+          ], 422);
+      }
       \App\host::where('id',$id)
       ->update(
       ['hostname'=>request('hostname'),

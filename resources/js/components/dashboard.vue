@@ -167,7 +167,7 @@
       <span>{{scope.row.usernames}}</span>
 </template>
    </el-table-column>
-   <el-table-column
+   <el-table-column v-if="updatedelete"
       label="Operations"
       width="250px"
       fixed="right">
@@ -190,9 +190,13 @@
 
 <script>
   export default {
+    props: {
+        updatedelete:Boolean,
+      },
     data() {
       return {
         data:[],
+      //  canupdatedelete: false,
       }
     },
     methods: {
@@ -204,52 +208,60 @@
 
       },
       handlechange(index, row){
-        let url= "http://localhost:8000/api/change/";
-        url+= row.id;
-        let host={};
-        host.hostname= row.hostname;
-        host.IP= row.IP;
-        host.collector=row.collector;
-        host.assetValue=row.assetValue;
-        host.icon=row.icon;
-        host.FQND=row.FQND;
-        host.OS=row.OS;
-        host.OSversion=row.OSversion;
-        host.CPU=row.CPU;
-        host.CPUbrand=row.CPUbrand;
-        host.RAM=row.RAM;
-        host.RAMbrand=row.RAMbrand;
-        host.MACaddress=row.MACaddress;
-        host.location=row.location;
-        host.HDD=row.HDD;
-        host.HDDbrand=row.HDDbrand;
-        host.services= row.services.split(",");
-        host.softwares= row.softwares.split(",");
-        host.usernames= row.usernames.split(",");
-        host.owners= row.owners.split(",");
-        console.log(host);
-        this.$http.post(url,host)
-        .then(response=>{
-          console.log(response);
-        }, error =>{
-          console.log(error);
-        });
-        location.reload();
+        if(updatedelete){
+            let url= "http://localhost:8000/api/change/";
+            url+= row.id;
+            let host={};
+            host.hostname= row.hostname;
+            host.IP= row.IP;
+            host.collector=row.collector;
+            host.assetValue=row.assetValue;
+            host.icon=row.icon;
+            host.FQND=row.FQND;
+            host.OS=row.OS;
+            host.OSversion=row.OSversion;
+            host.CPU=row.CPU;
+            host.CPUbrand=row.CPUbrand;
+            host.RAM=row.RAM;
+            host.RAMbrand=row.RAMbrand;
+            host.MACaddress=row.MACaddress;
+            host.location=row.location;
+            host.HDD=row.HDD;
+            host.HDDbrand=row.HDDbrand;
+            host.services= row.services.split(",");
+            host.softwares= row.softwares.split(",");
+            host.usernames= row.usernames.split(",");
+            host.owners= row.owners.split(",");
+            console.log(host);
+            this.$http.post(url,host)
+            .then(response=>{
+              console.log(response);
+            }, error =>{
+              console.log(error);
+            });
+      //  location.reload();
+        }
       },
       handleDelete(index, row) {
-        let url= "http://localhost:8000/api/delete/";
-        url+= row.id;
-        this.$http.get(url)
-        .then(response=>{
-          return response;
-        })
-        .then(data=> {
-        });
-        location.reload();
+        if(updatedelete){
+          let url= "http://localhost:8000/api/delete/";
+          url+= row.id;
+          this.$http.get(url)
+          .then(response=>{
+            return response;
+          })
+          .then(data=> {
+          });
+          //location.reload();
+        }
+
       },
       },
 
-    mounted() {
+    mounted:function() {
+                //this.canupdatedelete=this.updatedelete;
+                // console.log(this.canupdatedelete);
+                // console.log(this.updatedelete);
                 let table={};
                 let tableData= [];
                 this.$http.get('/api/dashboard')

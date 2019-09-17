@@ -16,7 +16,7 @@ class CreateUsernamesTable extends Migration
         Schema::create('usernames', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->unsignedBigInteger('hostID');
+            $table->unsignedBigInteger('hostID')->references('id')->on('hosts')->onDelete('cascade');
             $table->string('username')->nullable();
 
         });

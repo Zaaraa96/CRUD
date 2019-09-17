@@ -4,15 +4,12 @@
       <h2>signin</h2>
       <el-form
         class="signin-form"
-        :model="model"
-        :rules="rules"
         ref="form"
-        @submit.native.prevent="signin"
       >
-        <el-form-item prop="username">
+        <el-form-item prop="email">
           <el-input
-            v-model="model.username"
-            placeholder="Username"
+            v-model="model.email"
+            placeholder="Email"
             prefix-icon="fas fa-user"
           >
           </el-input>
@@ -28,11 +25,10 @@
         </el-form-item>
         <el-form-item>
           <el-button
-            :loading="loading"
             class="signin-button"
             type="primary"
             native-type="submit"
-            block
+            block @click="submit"
             >signin</el-button
           >
         </el-form-item>
@@ -49,62 +45,39 @@ export default {
   name: "signin",
   data() {
     return {
-      validCredentials: {
-        username: "lightscope",
-        password: "lightscope"
-      },
+
       model: {
-        username: "",
+        email: "",
         password: ""
       },
-      loading: false,
+
       rules: {
-        username: [
+        email: [
           {
             required: true,
             message: "Username is required",
             trigger: "blur"
           },
-          {
-            min: 4,
-            message: "Username length should be at least 5 characters",
-            trigger: "blur"
-          }
         ],
         password: [
           { required: true, message: "Password is required", trigger: "blur" },
-          {
-            min: 5,
-            message: "Password length should be at least 5 characters",
-            trigger: "blur"
-          }
         ]
       }
     };
   },
   methods: {
-    simulatesignin() {
-      return new Promise(resolve => {
-        setTimeout(resolve, 800);
-      });
+    submit() {
+          let user={};
+          user.email= model.email;
+          user.password= model.password;
+          this.$http.post('/login',user)
+          .then(token=>{
+            console.log(token);
+          }, error =>{
+            console.log(error);
+          });
+      window.location.replace("http://localhost:8000/dashboard");
     },
-    async signin() {
-      let valid = await this.$refs.form.validate();
-      if (!valid) {
-        return;
-      }
-      this.loading = true;
-      await this.simulatesignin();
-      this.loading = false;
-      if (
-        this.model.username === this.validCredentials.username &&
-        this.model.password === this.validCredentials.password
-      ) {
-        this.$message.success("signin successfull");
-      } else {
-        this.$message.error("Username or password is invalid");
-      }
-    }
   }
 };
 </script>

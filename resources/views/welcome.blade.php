@@ -14,7 +14,16 @@
         </style>
     </head>
     <body>
-      <div id="app">
+
+      @can('updatedelete')
+        <h5>can update and delete</h5>
+      @endcan
+      @cannot('updatedelete')
+        <h5>cannot update and delete</h5>
+      @endcannot
+
+      <div id="app" :updatedeletee="true">
+        <App  :updatedeletee="true" ></App>
   </div>
 
   <script src="/js/app.js"></script>

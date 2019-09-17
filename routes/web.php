@@ -16,11 +16,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
 Auth::routes();
-
+// Route::post('/login', 'userController@login');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/redis','HostController@redis');
 Route::middleware('auth')->get('/', function () {
-    return view('welcome');
+    $user= Auth::user()->api_token;
+    return View::make('welcome')->with(compact('user'));
+
+    return $user->api_token;
+    //return view('welcome');
+    return view('welcome', compact("user"));
 });
 Route::middleware('auth')->get('/{any}', function ($any) {
     return view('welcome');

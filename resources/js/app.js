@@ -39,6 +39,7 @@ window.Vue = require('vue');
  Vue.use(Vuelidate);
  Vue.use(VueRouter);
 Vue.http.options.root= 'localhost:8000';
+
 const router = new VueRouter({
                 routes,
                 mode: 'history'
