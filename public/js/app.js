@@ -3696,8 +3696,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit() {
       var host = {};
 
-      for (var i = 0; i < this.fields.length; i++) {
-        host[this.fields[i].prop] = this.fields[i].input;
+      for (var key in this.fields) {
+        if (this.fields.hasOwnProperty(key)) {
+          var field = this.fields[key];
+          host[field.prop] = field.input;
+        }
       }
 
       console.log(host);
@@ -3705,7 +3708,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(response);
       }, function (error) {
         console.log(error);
-      }); //window.location.replace("http://localhost:8000/dashboard");
+      });
+      window.location.replace("http://localhost:8000/dashboard");
     },
     buttonclick: function buttonclick(index) {
       this.fields[index].show = true;
@@ -4262,8 +4266,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit() {
       var host = {};
 
-      for (var i = 0; i < this.fields.length; i++) {
-        host[this.fields[i].prop] = this.fields[i].input;
+      for (var key in this.fields) {
+        if (this.fields.hasOwnProperty(key)) {
+          var field = this.fields[key];
+          host[field.prop] = field.input;
+        }
       }
 
       console.log(host);
@@ -4271,7 +4278,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(response);
       }, function (error) {
         console.log(error);
-      }); //window.location.replace("http://localhost:8000/dashboard");
+      });
+      window.location.replace("http://localhost:8000/dashboard");
     },
     buttonclick: function buttonclick(index) {
       this.fields[index].show = true;

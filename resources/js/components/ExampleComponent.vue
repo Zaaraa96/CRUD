@@ -283,8 +283,11 @@ data() {
     methods: {
       submit() {
         let host= {};
-        for (var i = 0; i < this.fields.length; i++) {
-          host[this.fields[i].prop]= this.fields[i].input;
+        for (var key in this.fields) {
+          if (this.fields.hasOwnProperty(key)) {
+            let field=this.fields[key];
+            host[field.prop]= field.input;
+          }
         }
         console.log(host);
             this.$http.post('/api/dashboard',host)
@@ -293,7 +296,7 @@ data() {
             }, error =>{
               console.log(error);
             });
-        //window.location.replace("http://localhost:8000/dashboard");
+        window.location.replace("http://localhost:8000/dashboard");
       },
       buttonclick(index){
         this.fields[index].show=true;
