@@ -24,6 +24,9 @@ class host extends Model
       'HDD',
       'HDDbrand'
     ];
+
+
+
     public function services(){
       return $this->hasMany(service::class, 'hostID');
     }

@@ -16,7 +16,7 @@ class CreateHostsTable extends Migration
         Schema::create('hosts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('hostname');
+            $table->string('hostname')->nullable();
             $table->ipAddress('ip')->nullable();
             $table->string('collector')->nullable();
             $table->string('assetValue')->nullable();

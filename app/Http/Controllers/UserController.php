@@ -27,7 +27,7 @@ class UserController extends Controller
             ],403);
         }
         $userid = Auth::user();
-        //return $userid->api_token;
+        return $userid->api_token;
         //return (auth()->user());
     }
 

@@ -5,6 +5,7 @@ Use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Validator;
 use Gate;
 class HostController extends Controller
 {
@@ -26,8 +27,6 @@ class HostController extends Controller
   }
     public function index(){
       $hosts=\App\host::all();
-      // $i=0;
-      // $hostwithservice=[];
       foreach ($hosts as $host) {
         $services=$host->services;
         $owners=$host->owners;
@@ -40,12 +39,12 @@ class HostController extends Controller
       //Redis::lpush($user ,$userid);
       return $hosts;
     }
-    public function add(){
-      $user=request('user');
-      $userid = $user.id;
-      $user="user".(string)$userid;
-      Redis::lpush($user ,'create');
-      // $this->validate(request(),[
+    public function add(Request $request){
+      //$user=request('user');
+      // $userid = $user.id;
+      // $user="user".(string)$userid;
+      // Redis::lpush($user ,'create');
+      // $validator = Validator::make($request->all(), [
       //   'hostname'=> 'required',
       //   'IP'=>'Nullable|ip',
       //   'collector'=>'Nullable',
@@ -66,7 +65,8 @@ class HostController extends Controller
       //   'softwares'=>'Nullable|array',
       //   'services'=>'Nullable|array',
       //   'usernames'=>'Nullable|array',
-      // ]);
+      //   ]);
+      //
       // if($validator->fails()){
       //     return response([
       //     'data' => [
@@ -76,25 +76,8 @@ class HostController extends Controller
       //     ], 422);
       // }
 
-      $host= new \App\host;
-      $host->hostname=request('hostname');
-      $host->ip=request('IP');
-      $host->collector=request('collector');
-      $host->assetValue=request('assetValue');
-      $host->icon=request('icon');
-      $host->FQND=request('FQND');
-      $host->OS=request('OS');
-      $host->OSversion=request('OSversion');
-      $host->CPU=request('CPU');
-      $host->CPUbrand=request('CPUbrand');
-      $host->RAM=request('RAM');
-      $host->RAMbrand=request('RAMbrand');
-      $host->MACaddress=request('MACaddress');
-      $host->location=request('location');
-      $host->HDD=request('HDD');
-      $host->HDDbrand=request('HDDbrand');
-      $host->save();
-      $insertedId = $host->id;
+      $input = $request->all();
+      $insertedId = \App\host::create($input)->id;
 
       $owners= request('owners');
       foreach ($owners as $value):
@@ -124,22 +107,11 @@ class HostController extends Controller
         $username->username=$value;
         $username->save();
       endforeach;
-
-
-      //check
-      // public function store() {
-      //
-      // $input = Request::all();
-      // $id = Company::create($input)->id;
-      //
-      // return redirect('company/'.$id);
-      // }
-
-
     }
+
     public function delete($id){
 
-     if(Gate::allows('updatedelete')){
+     //if(Gate::allows('updatedelete')){
         $hosts=\App\host::where('id',$id)->delete();
         $owner=\App\owner::where('hostID',$id)->delete();
         $service=\App\service::where('hostID',$id)->delete();
@@ -148,12 +120,13 @@ class HostController extends Controller
         $userid = Auth::id();
         $user="user".(string)$userid;
         Redis::lpush($user ,'delete');
-     }
-      abort(403,'not-access');
+     // }
+     //  abort(403,'not-access');
 
     }
-    public function change($id){
-      $this->validate(request(),[
+    public function change($id,Request $request){
+
+      $validator = Validator::make($request->all(), [
         'hostname'=> 'required',
         'IP'=>'Nullable|ip',
         'collector'=>'Nullable',
@@ -174,7 +147,8 @@ class HostController extends Controller
         'softwares'=>'Nullable|array',
         'services'=>'Nullable|array',
         'usernames'=>'Nullable|array',
-      ]);
+        ]);
+
       if($validator->fails()){
           return response([
           'data' => [
@@ -183,25 +157,9 @@ class HostController extends Controller
           'status' => 'error'
           ], 422);
       }
-      \App\host::where('id',$id)
-      ->update(
-      ['hostname'=>request('hostname'),
-      'ip'=>request('IP'),
-      'collector'=>request('collector'),
-      'assetValue'=>request('assetValue'),
-      'icon'=>request('icon'),
-      'FQND'=>request('FQND'),
-      'OS'=>request('OS'),
-      'OSversion'=>request('OSversion'),
-      'CPU'=>request('CPU'),
-      'CPUbrand'=>request('CPUbrand'),
-      'RAM'=>request('RAM'),
-      'RAMbrand'=>request('RAMbrand'),
-      'MACaddress'=>request('MACaddress'),
-      'location'=>request('location'),
-      'HDD'=>request('HDD'),
-      'HDDbrand'=>request('HDDbrand')
-      ]);
+      $input = $request->all();
+      \App\host::where('id',$id)->first()->update($input);
+
       $owner=\App\owner::where('hostID',$id)->delete();
       $service=\App\service::where('hostID',$id)->delete();
       $software=\App\software::where('hostID',$id)->delete();

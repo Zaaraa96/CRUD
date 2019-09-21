@@ -3328,6 +3328,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_exampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/exampleComponent.vue */ "./resources/js/components/exampleComponent.vue");
 /* harmony import */ var _components_signin_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/signin.vue */ "./resources/js/components/signin.vue");
 /* harmony import */ var _components_dashboard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/dashboard.vue */ "./resources/js/components/dashboard.vue");
+/* harmony import */ var _components_test_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/test.vue */ "./resources/js/components/test.vue");
 //
 //
 //
@@ -3338,13 +3339,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   props: {
-    updatedeletee: Boolean
+    'update-delete': Boolean,
+    'folan': String
   },
   data: function data() {
     return {
@@ -3356,11 +3359,12 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     exampleComponent: _components_exampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     signin: _components_signin_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    test: _components_test_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     dashboard: _components_dashboard_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
     //  this.updatedelete= this.updatedeletee;
-    console.log(this.updatedeletee);
+    console.log(this.folan);
   }
 });
 
@@ -3377,86 +3381,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _fields;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3498,78 +3426,295 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      assetValue: false,
-      icon: false,
-      FQND: false,
-      OS: false,
-      OSversion: false,
-      CPU: false,
-      CPUbrand: false,
-      RAM: false,
-      RAMbrand: false,
-      MACaddress: false,
-      servicesnum: 0,
-      usernamesnum: 0,
-      ownersnum: 0,
-      location: false,
-      softwaresnum: 0,
-      HDD: false,
-      HDDbrand: false,
-      host: {
-        hostname: '',
-        IP: '',
-        collector: '',
-        assetValue: '',
-        icon: '',
-        FQND: '',
-        OS: '',
-        OSversion: '',
-        CPU: '',
-        CPUbrand: '',
-        RAM: '',
-        RAMbrand: '',
-        MACaddress: '',
-        location: '',
-        HDD: '',
-        HDDbrand: ''
-      },
-      services: [],
-      softwares: [],
-      owners: [],
-      usernames: []
+      fields: {
+        hostname: {
+          prop: "hostname",
+          label: "Host name",
+          show: true,
+          buttonshow: false,
+          multi: false,
+          num: 1,
+          message: " you have to enter a hostname",
+          input: ""
+        },
+        IP: {
+          prop: "IP",
+          label: "IP address",
+          show: true,
+          buttonshow: false,
+          multi: false,
+          num: 1,
+          message: "you have to enter a valid IP address",
+          input: ""
+        },
+        collector: {
+          prop: "collector",
+          label: "collector",
+          show: true,
+          buttonshow: false,
+          multi: false,
+          num: 1,
+          message: "",
+          input: ""
+        },
+        asssetValue: {
+          prop: "assetValue",
+          label: "asset Value",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        icon: {
+          prop: "icon",
+          label: "icon",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "you have to enter a valid url",
+          input: ""
+        },
+        FQND: {
+          prop: "FQND",
+          label: "FQND",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        OS: {
+          prop: "OS",
+          label: "OS",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        OSversion: {
+          prop: "OSversion",
+          label: "OS version",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "you have to enter a number",
+          input: ""
+        },
+        CPU: {
+          prop: "CPU",
+          label: "CPU",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        CPUbrand: {
+          prop: "CPUbrand",
+          label: "CPU brand",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        RAM: {
+          prop: "RAM",
+          label: "RAM",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        RAMbrand: {
+          prop: "RAMbrand",
+          label: "RAM brand",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          message: "",
+          input: ""
+        },
+        MACaddress: {
+          prop: "MACaddress",
+          label: "MAC address",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "you have to enter a valid MAC address",
+          input: ""
+        },
+        location: {
+          prop: "location",
+          label: "location",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        HDD: {
+          prop: "HDD",
+          label: "H.D.D",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        HDDbrand: {
+          prop: "HDDbrand",
+          label: "H.D.D brand",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        services: {
+          prop: "services",
+          label: "services",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        },
+        softwares: {
+          prop: "softwares",
+          label: "softwares",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        },
+        usernames: {
+          prop: "usernames",
+          label: "user names",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        },
+        owners: {
+          prop: "owners",
+          label: "owners",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        }
+      }
     };
   },
   validations: {
-    host: {
+    fields: (_fields = {
       hostname: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+        input: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+        }
       },
       IP: {
-        ipAddress: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["ipAddress"]
+        input: {
+          ipAddress: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["ipAddress"]
+        }
       },
       icon: {
-        url: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["url"]
+        input: {
+          url: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["url"]
+        }
       },
       OSversion: {
-        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["numeric"]
+        input: {
+          numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["numeric"]
+        }
       },
       MACaddress: {
-        macAddress: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["macAddress"])(':')
+        input: {
+          macAddress: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["macAddress"])(':')
+        }
+      },
+      collector: {
+        input: {}
+      },
+      assetValue: {
+        input: {}
       }
-    }
+    }, _defineProperty(_fields, "icon", {
+      input: {}
+    }), _defineProperty(_fields, "FQND", {
+      input: {}
+    }), _defineProperty(_fields, "OS", {
+      input: {}
+    }), _defineProperty(_fields, "CPU", {
+      input: {}
+    }), _defineProperty(_fields, "CPUbrand", {
+      input: {}
+    }), _defineProperty(_fields, "RAM", {
+      input: {}
+    }), _defineProperty(_fields, "RAMbrand", {
+      input: {}
+    }), _defineProperty(_fields, "location", {
+      input: {}
+    }), _defineProperty(_fields, "HDD", {
+      input: {}
+    }), _defineProperty(_fields, "HDDbrand", {
+      input: {}
+    }), _defineProperty(_fields, "services", {
+      input: {}
+    }), _defineProperty(_fields, "owners", {
+      input: {}
+    }), _defineProperty(_fields, "usernames", {
+      input: {}
+    }), _defineProperty(_fields, "softwares", {
+      input: {}
+    }), _fields)
   },
   methods: {
     submit: function submit() {
-      var host = this.host;
-      host.services = this.services;
-      host.softwares = this.softwares;
-      host.usernames = this.usernames;
-      host.owners = this.owners;
+      var host = {};
+
+      for (var i = 0; i < this.fields.length; i++) {
+        host[this.fields[i].prop] = this.fields[i].input;
+      }
+
+      console.log(host);
       this.$http.post('/api/dashboard', host).then(function (response) {
         console.log(response);
       }, function (error) {
         console.log(error);
       }); //window.location.replace("http://localhost:8000/dashboard");
+    },
+    buttonclick: function buttonclick(index) {
+      this.fields[index].show = true;
+
+      if (this.fields[index].multi) {
+        this.fields[index].num++;
+      } else {
+        this.fields[index].num = 1;
+      }
     }
   }
 });
@@ -3624,165 +3769,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    updatedelete: Boolean
-  },
   data: function data() {
     return {
-      data: [] //  canupdatedelete: false,
-
+      data: [],
+      fields: [{
+        prop: "hostname",
+        label: "Host name"
+      }, {
+        prop: "IP",
+        label: "IP address"
+      }, {
+        prop: "collector",
+        label: "collector"
+      }, {
+        prop: "assetValue",
+        label: "asset Value"
+      }, {
+        prop: "icon",
+        label: "icon"
+      }, {
+        prop: "FQND",
+        label: "FQND"
+      }, {
+        prop: "OS",
+        label: "OS"
+      }, {
+        prop: "OSversion",
+        label: "OS version"
+      }, {
+        prop: "CPU",
+        label: "CPU"
+      }, {
+        prop: "CPUbrand",
+        label: "CPU brand"
+      }, {
+        prop: "RAM",
+        label: "RAM"
+      }, {
+        prop: "RAMbrand",
+        label: "RAM brand"
+      }, {
+        prop: "MACaddress",
+        label: "MAC address"
+      }, {
+        prop: "location",
+        label: "location"
+      }, {
+        prop: "HDD",
+        label: "H.D.D"
+      }, {
+        prop: "HDDbrand",
+        label: "H.D.D brand"
+      }, {
+        prop: "services",
+        label: "services"
+      }, {
+        prop: "softwares",
+        label: "softwares"
+      }, {
+        prop: "usernames",
+        label: "user names"
+      }, {
+        prop: "owners",
+        label: "owners"
+      }]
     };
   },
   methods: {
@@ -3793,52 +3844,31 @@ __webpack_require__.r(__webpack_exports__);
       console.log(row.id);
     },
     handlechange: function handlechange(index, row) {
-      if (updatedelete) {
-        var url = "http://localhost:8000/api/change/";
-        url += row.id;
-        var host = {};
-        host.hostname = row.hostname;
-        host.IP = row.IP;
-        host.collector = row.collector;
-        host.assetValue = row.assetValue;
-        host.icon = row.icon;
-        host.FQND = row.FQND;
-        host.OS = row.OS;
-        host.OSversion = row.OSversion;
-        host.CPU = row.CPU;
-        host.CPUbrand = row.CPUbrand;
-        host.RAM = row.RAM;
-        host.RAMbrand = row.RAMbrand;
-        host.MACaddress = row.MACaddress;
-        host.location = row.location;
-        host.HDD = row.HDD;
-        host.HDDbrand = row.HDDbrand;
-        host.services = row.services.split(",");
-        host.softwares = row.softwares.split(",");
-        host.usernames = row.usernames.split(",");
-        host.owners = row.owners.split(",");
-        console.log(host);
-        this.$http.post(url, host).then(function (response) {
-          console.log(response);
-        }, function (error) {
-          console.log(error);
-        }); //  location.reload();
-      }
+      var url = "http://localhost:8000/api/change/";
+      url += row.id;
+      var host = {};
+      host = row;
+      host.services = row.services.split(",");
+      host.softwares = row.softwares.split(",");
+      host.usernames = row.usernames.split(",");
+      host.owners = row.owners.split(",");
+      console.log(host);
+      this.$http.post(url, host).then(function (response) {
+        console.log(response);
+      }, function (error) {
+        console.log(error);
+      }); // location.reload();
     },
     handleDelete: function handleDelete(index, row) {
-      if (updatedelete) {
-        var url = "http://localhost:8000/api/delete/";
-        url += row.id;
-        this.$http.get(url).then(function (response) {
-          return response;
-        }).then(function (data) {}); //location.reload();
-      }
+      var url = "http://localhost:8000/api/delete/";
+      url += row.id;
+      this.$http.get(url).then(function (response) {
+        return response;
+      }).then(function (data) {});
+      location.reload();
     }
   },
   mounted: function mounted() {
-    //this.canupdatedelete=this.updatedelete;
-    // console.log(this.canupdatedelete);
-    // console.log(this.updatedelete);
     var table = {};
     var tableData = [];
     this.$http.get('/api/dashboard').then(function (data) {
@@ -3917,86 +3947,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _fields;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4038,78 +3992,295 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      assetValue: false,
-      icon: false,
-      FQND: false,
-      OS: false,
-      OSversion: false,
-      CPU: false,
-      CPUbrand: false,
-      RAM: false,
-      RAMbrand: false,
-      MACaddress: false,
-      servicesnum: 0,
-      usernamesnum: 0,
-      ownersnum: 0,
-      location: false,
-      softwaresnum: 0,
-      HDD: false,
-      HDDbrand: false,
-      host: {
-        hostname: '',
-        IP: '',
-        collector: '',
-        assetValue: '',
-        icon: '',
-        FQND: '',
-        OS: '',
-        OSversion: '',
-        CPU: '',
-        CPUbrand: '',
-        RAM: '',
-        RAMbrand: '',
-        MACaddress: '',
-        location: '',
-        HDD: '',
-        HDDbrand: ''
-      },
-      services: [],
-      softwares: [],
-      owners: [],
-      usernames: []
+      fields: {
+        hostname: {
+          prop: "hostname",
+          label: "Host name",
+          show: true,
+          buttonshow: false,
+          multi: false,
+          num: 1,
+          message: " you have to enter a hostname",
+          input: ""
+        },
+        IP: {
+          prop: "IP",
+          label: "IP address",
+          show: true,
+          buttonshow: false,
+          multi: false,
+          num: 1,
+          message: "you have to enter a valid IP address",
+          input: ""
+        },
+        collector: {
+          prop: "collector",
+          label: "collector",
+          show: true,
+          buttonshow: false,
+          multi: false,
+          num: 1,
+          message: "",
+          input: ""
+        },
+        asssetValue: {
+          prop: "assetValue",
+          label: "asset Value",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        icon: {
+          prop: "icon",
+          label: "icon",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "you have to enter a valid url",
+          input: ""
+        },
+        FQND: {
+          prop: "FQND",
+          label: "FQND",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        OS: {
+          prop: "OS",
+          label: "OS",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        OSversion: {
+          prop: "OSversion",
+          label: "OS version",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "you have to enter a number",
+          input: ""
+        },
+        CPU: {
+          prop: "CPU",
+          label: "CPU",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        CPUbrand: {
+          prop: "CPUbrand",
+          label: "CPU brand",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        RAM: {
+          prop: "RAM",
+          label: "RAM",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        RAMbrand: {
+          prop: "RAMbrand",
+          label: "RAM brand",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          message: "",
+          input: ""
+        },
+        MACaddress: {
+          prop: "MACaddress",
+          label: "MAC address",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "you have to enter a valid MAC address",
+          input: ""
+        },
+        location: {
+          prop: "location",
+          label: "location",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        HDD: {
+          prop: "HDD",
+          label: "H.D.D",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        HDDbrand: {
+          prop: "HDDbrand",
+          label: "H.D.D brand",
+          show: false,
+          buttonshow: true,
+          multi: false,
+          num: 0,
+          message: "",
+          input: ""
+        },
+        services: {
+          prop: "services",
+          label: "services",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        },
+        softwares: {
+          prop: "softwares",
+          label: "softwares",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        },
+        usernames: {
+          prop: "usernames",
+          label: "user names",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        },
+        owners: {
+          prop: "owners",
+          label: "owners",
+          show: false,
+          buttonshow: true,
+          multi: true,
+          num: 0,
+          message: "",
+          input: []
+        }
+      }
     };
   },
   validations: {
-    host: {
+    fields: (_fields = {
       hostname: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+        input: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+        }
       },
       IP: {
-        ipAddress: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["ipAddress"]
+        input: {
+          ipAddress: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["ipAddress"]
+        }
       },
       icon: {
-        url: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["url"]
+        input: {
+          url: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["url"]
+        }
       },
       OSversion: {
-        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["numeric"]
+        input: {
+          numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["numeric"]
+        }
       },
       MACaddress: {
-        macAddress: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["macAddress"])(':')
+        input: {
+          macAddress: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["macAddress"])(':')
+        }
+      },
+      collector: {
+        input: {}
+      },
+      assetValue: {
+        input: {}
       }
-    }
+    }, _defineProperty(_fields, "icon", {
+      input: {}
+    }), _defineProperty(_fields, "FQND", {
+      input: {}
+    }), _defineProperty(_fields, "OS", {
+      input: {}
+    }), _defineProperty(_fields, "CPU", {
+      input: {}
+    }), _defineProperty(_fields, "CPUbrand", {
+      input: {}
+    }), _defineProperty(_fields, "RAM", {
+      input: {}
+    }), _defineProperty(_fields, "RAMbrand", {
+      input: {}
+    }), _defineProperty(_fields, "location", {
+      input: {}
+    }), _defineProperty(_fields, "HDD", {
+      input: {}
+    }), _defineProperty(_fields, "HDDbrand", {
+      input: {}
+    }), _defineProperty(_fields, "services", {
+      input: {}
+    }), _defineProperty(_fields, "owners", {
+      input: {}
+    }), _defineProperty(_fields, "usernames", {
+      input: {}
+    }), _defineProperty(_fields, "softwares", {
+      input: {}
+    }), _fields)
   },
   methods: {
     submit: function submit() {
-      var host = this.host;
-      host.services = this.services;
-      host.softwares = this.softwares;
-      host.usernames = this.usernames;
-      host.owners = this.owners;
+      var host = {};
+
+      for (var i = 0; i < this.fields.length; i++) {
+        host[this.fields[i].prop] = this.fields[i].input;
+      }
+
+      console.log(host);
       this.$http.post('/api/dashboard', host).then(function (response) {
         console.log(response);
       }, function (error) {
         console.log(error);
       }); //window.location.replace("http://localhost:8000/dashboard");
+    },
+    buttonclick: function buttonclick(index) {
+      this.fields[index].show = true;
+
+      if (this.fields[index].multi) {
+        this.fields[index].num++;
+      } else {
+        this.fields[index].num = 1;
+      }
     }
   }
 });
@@ -4201,6 +4372,33 @@ __webpack_require__.r(__webpack_exports__);
       });
       window.location.replace("http://localhost:8000/dashboard");
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/test.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/test.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'test',
+  props: {
+    test: ''
+  },
+  // <el-button size="mini">OK</el-button>
+  render: function render(createElement) {
+    return createElement('el-button', {
+      props: {
+        size: "mini"
+      }
+    }, [this.test]);
   }
 });
 
@@ -10524,7 +10722,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Add scoped styles */\n#app[data-v-f348271a] {\n  padding: 20px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Add scoped styles */\n#app[data-v-f348271a] {\n  padding: 20px;\n}\n", ""]);
 
 // exports
 
@@ -10543,7 +10741,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#form{\n  margin-left: 30%;\n  width: 30%;\n}\n#buttons{\n  margin-left: 5%;\n  width: 30%;\n  display: inline-block;\n}\n.invalid{\n  color: red;\n}\n", ""]);
+exports.push([module.i, "\n#form{\n  margin-left: 30%;\n  width: 30%;\n}\n.buttons{\n  margin-left: 5%;\n  margin-bottom: 3%;\n  width: 30%;\n  display: inline-block;\n}\n.invalid{\n  color: red;\n}\n.multigroup{\n  margin-bottom: 0.5%;\n}\n", ""]);
 
 // exports
 
@@ -10581,7 +10779,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#form{\n  margin-left: 30%;\n  width: 30%;\n}\n#buttons{\n  margin-left: 5%;\n  width: 30%;\n  display: inline-block;\n}\n.invalid{\n  color: red;\n}\n", ""]);
+exports.push([module.i, "\n#form{\n  margin-left: 30%;\n  width: 30%;\n}\n.buttons{\n  margin-left: 5%;\n  margin-bottom: 3%;\n  width: 30%;\n  display: inline-block;\n}\n.invalid{\n  color: red;\n}\n.multigroup{\n  margin-bottom: 0.5%;\n}\n", ""]);
 
 // exports
 
@@ -99463,6 +99661,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("test", { attrs: { test: "salam" } }),
+      _vm._v(" "),
       _c(
         "router-link",
         { attrs: { to: "/dashboard" } },
@@ -99537,445 +99737,53 @@ var render = function() {
             "el-form",
             { staticClass: "demo-ruleForm", attrs: { "label-width": "120px" } },
             [
-              _c(
-                "el-form-item",
-                {
-                  class: { invalid: _vm.$v.host.hostname.$error },
-                  attrs: { label: "host name", prop: "hostname" }
-                },
-                [
-                  _c("el-input", {
-                    on: {
-                      blur: function($event) {
-                        return _vm.$v.host.hostname.$touch()
-                      }
-                    },
-                    model: {
-                      value: _vm.host.hostname,
-                      callback: function($$v) {
-                        _vm.$set(_vm.host, "hostname", $$v)
+              _vm._l(_vm.fields, function(field) {
+                return field.show
+                  ? _c(
+                      "el-form-item",
+                      {
+                        class: {
+                          invalid: _vm.$v.fields[field.prop].input.$error
+                        },
+                        attrs: { prop: field.prop, label: field.label }
                       },
-                      expression: "host.hostname"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.$v.host.hostname.$error
-                    ? _c("p", [_vm._v(" you have to enter a hostname")])
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: "IP", prop: "IP" } },
-                [
-                  _c("el-input", {
-                    on: {
-                      blur: function($event) {
-                        return _vm.$v.host.IP.$touch()
-                      }
-                    },
-                    model: {
-                      value: _vm.host.IP,
-                      callback: function($$v) {
-                        _vm.$set(_vm.host, "IP", $$v)
-                      },
-                      expression: "host.IP"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.$v.host.IP.$error
-                    ? _c("p", { class: { invalid: _vm.$v.host.IP.$error } }, [
-                        _vm._v(" you have to enter a valid IP address")
-                      ])
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: "collector", prop: "collector" } },
-                [
-                  _c("el-input", {
-                    model: {
-                      value: _vm.host.collector,
-                      callback: function($$v) {
-                        _vm.$set(_vm.host, "collector", $$v)
-                      },
-                      expression: "host.collector"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.assetValue
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "asset value", prop: "assetValue" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.assetValue,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "assetValue", $$v)
-                          },
-                          expression: "host.assetValue"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.icon
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "icon", prop: "icon" } },
-                    [
-                      _c("el-input", {
-                        on: {
-                          blur: function($event) {
-                            return _vm.$v.host.icon.$touch()
-                          }
-                        },
-                        model: {
-                          value: _vm.host.icon,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "icon", $$v)
-                          },
-                          expression: "host.icon"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.$v.host.icon.$error
-                        ? _c(
-                            "p",
-                            { class: { invalid: _vm.$v.host.icon.$error } },
-                            [_vm._v(" you have to enter a valid url")]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.FQND
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "FQND", prop: "FQND" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.FQND,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "FQND", $$v)
-                          },
-                          expression: "host.FQND"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.OS
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "OS", prop: "OS" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.OS,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "OS", $$v)
-                          },
-                          expression: "host.OS"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.OSversion
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "OS version", prop: "OSversion" } },
-                    [
-                      _c("el-input", {
-                        on: {
-                          blur: function($event) {
-                            return _vm.$v.host.OSversion.$touch()
-                          }
-                        },
-                        model: {
-                          value: _vm.host.OSversion,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "OSversion", $$v)
-                          },
-                          expression: "host.OSversion"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.$v.host.OSversion.$error
-                        ? _c(
-                            "p",
-                            {
-                              class: { invalid: _vm.$v.host.OSversion.$error }
-                            },
-                            [_vm._v(" you have to enter a number")]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.CPU
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "CPU", prop: "CPU" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.CPU,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "CPU", $$v)
-                          },
-                          expression: "host.CPU"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.CPUbrand
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "CPU brand", prop: "CPUbrand" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.CPUbrand,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "CPUbrand", $$v)
-                          },
-                          expression: "host.CPUbrand"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.RAM
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "RAM", prop: "RAM" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.RAM,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "RAM", $$v)
-                          },
-                          expression: "host.RAM"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.RAMbrand
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "RAM brand", prop: "RAMbrand" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.RAMbrand,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "RAMbrand", $$v)
-                          },
-                          expression: "host.RAMbrand"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.MACaddress
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "MAC address", prop: "MACaddress" } },
-                    [
-                      _c("el-input", {
-                        on: {
-                          blur: function($event) {
-                            return _vm.$v.host.MACaddress.$touch()
-                          }
-                        },
-                        model: {
-                          value: _vm.host.MACaddress,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "MACaddress", $$v)
-                          },
-                          expression: "host.MACaddress"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.$v.host.MACaddress.$error
-                        ? _c(
-                            "p",
-                            {
-                              class: { invalid: _vm.$v.host.MACaddress.$error }
-                            },
-                            [_vm._v(" you have to enter a valid MAC address")]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.servicesnum, function(service, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "service", prop: "service" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.services[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.services, index, $$v)
-                        },
-                        expression: "services[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
+                      [
+                        _vm._l(field.num, function(single, index) {
+                          return field.multi
+                            ? _c("el-input", {
+                                staticClass: "multigroup",
+                                model: {
+                                  value: field.input[index],
+                                  callback: function($$v) {
+                                    _vm.$set(field.input, index, $$v)
+                                  },
+                                  expression: "field.input[index]"
+                                }
+                              })
+                            : _c("el-input", {
+                                on: {
+                                  blur: function($event) {
+                                    _vm.$v.fields[field.prop].input.$touch()
+                                  }
+                                },
+                                model: {
+                                  value: field.input,
+                                  callback: function($$v) {
+                                    _vm.$set(field, "input", $$v)
+                                  },
+                                  expression: "field.input"
+                                }
+                              })
+                        }),
+                        _vm._v(" "),
+                        _vm.$v.fields[field.prop].input.$error
+                          ? _c("p", [_vm._v(" " + _vm._s(field.message))])
+                          : _vm._e()
+                      ],
+                      2
+                    )
+                  : _vm._e()
               }),
-              _vm._v(" "),
-              _vm._l(_vm.usernamesnum, function(username, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "username", prop: "username" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.usernames[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.usernames, index, $$v)
-                        },
-                        expression: "usernames[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.ownersnum, function(owner, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "owner", prop: "owner" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.owners[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.owners, index, $$v)
-                        },
-                        expression: "owners[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _vm.location
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "location", prop: "location" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.location,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "location", $$v)
-                          },
-                          expression: "host.location"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.softwaresnum, function(software, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "software", prop: "software" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.softwares[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.softwares, index, $$v)
-                        },
-                        expression: "softwares[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _vm.HDD
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "H.D.D", prop: "HDD" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.HDD,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "HDD", $$v)
-                          },
-                          expression: "host.HDD"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.HDDbrand
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "H.D.D brand", prop: "HDDbrand" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.HDDbrand,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "HDDbrand", $$v)
-                          },
-                          expression: "host.HDDbrand"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
               _vm._v(" "),
               _c(
                 "el-button",
@@ -99995,268 +99803,37 @@ var render = function() {
       _c(
         "el-col",
         { attrs: { span: 8 } },
-        [
-          _c(
-            "el-row",
-            [
-              _c(
+        _vm._l(_vm.fields, function(field, index) {
+          return field.buttonshow
+            ? _c(
                 "el-button",
                 {
+                  staticClass: "buttons",
                   attrs: { round: "" },
                   on: {
                     click: function($event) {
-                      _vm.assetValue = true
+                      return _vm.buttonclick(index)
                     }
                   }
                 },
-                [_vm._v("asset value")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.icon = true
-                    }
-                  }
-                },
-                [_vm._v("icon")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.FQND = true
-                    }
-                  }
-                },
-                [_vm._v("FQND")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.OS = true
-                    }
-                  }
-                },
-                [_vm._v("OS")]
+                [
+                  field.multi
+                    ? _c("div", [
+                        _vm._v(
+                          "\n        " +
+                            _vm._s(field.label) +
+                            "(" +
+                            _vm._s(field.num) +
+                            ")\n      "
+                        )
+                      ])
+                    : _c("div", [
+                        _vm._v("\n        " + _vm._s(field.label) + "\n      ")
+                      ])
+                ]
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.OSversion = true
-                    }
-                  }
-                },
-                [_vm._v("OS version")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.CPU = true
-                    }
-                  }
-                },
-                [_vm._v("CPU")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.CPUbrand = true
-                    }
-                  }
-                },
-                [_vm._v("CPU brand")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.RAM = true
-                    }
-                  }
-                },
-                [_vm._v("RAM")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.RAMbrand = true
-                    }
-                  }
-                },
-                [_vm._v("RAM brand")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.MACaddress = true
-                    }
-                  }
-                },
-                [_vm._v("MAC address")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.servicesnum++
-                    }
-                  }
-                },
-                [_vm._v("services(" + _vm._s(_vm.servicesnum) + ")")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.usernamesnum++
-                    }
-                  }
-                },
-                [_vm._v("usernames(" + _vm._s(_vm.usernamesnum) + ")")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.ownersnum++
-                    }
-                  }
-                },
-                [_vm._v("owners(" + _vm._s(_vm.ownersnum) + ")")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.location = true
-                    }
-                  }
-                },
-                [_vm._v("location")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.softwaresnum++
-                    }
-                  }
-                },
-                [_vm._v("softwares(" + _vm._s(_vm.softwaresnum) + ")")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.HDD = true
-                    }
-                  }
-                },
-                [_vm._v("H.D.D")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.HDDbrand = true
-                    }
-                  }
-                },
-                [_vm._v("H.D.D brand")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br")
-        ],
+            : _vm._e()
+        }),
         1
       )
     ],
@@ -100302,658 +99879,81 @@ var render = function() {
           on: { "row-click": _vm.handleCurrentChange }
         },
         [
-          _c("el-table-column", {
-            attrs: { prop: "hostname", label: "Host name", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.hostname,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "hostname", $$v)
-                        },
-                        expression: "scope.row.hostname"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.hostname))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "IP", label: "IP address", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.IP,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "IP", $$v)
-                        },
-                        expression: "scope.row.IP"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.IP))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "collector", label: "collector", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.collector,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "collector", $$v)
-                        },
-                        expression: "scope.row.collector"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.collector))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "assetValue", label: "asset Value", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.assetValue,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "assetValue", $$v)
-                        },
-                        expression: "scope.row.assetValue"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.assetValue))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "icon", label: "icon", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.icon,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "icon", $$v)
-                        },
-                        expression: "scope.row.icon"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.icon))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "FQND", label: "FQND", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.FQND,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "FQND", $$v)
-                        },
-                        expression: "scope.row.FQND"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.FQND))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "OS", label: "OS", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.OS,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "OS", $$v)
-                        },
-                        expression: "scope.row.OS"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.OS))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "OSversion", label: "OS version", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.OSversion,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "OSversion", $$v)
-                        },
-                        expression: "scope.row.OSversion"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.OSversion))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "CPU", label: "CPU", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.CPU,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "CPU", $$v)
-                        },
-                        expression: "scope.row.CPU"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.CPU))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "CPUbrand", label: "CPU brand", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.CPUbrand,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "CPUbrand", $$v)
-                        },
-                        expression: "scope.row.CPUbrand"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.CPUbrand))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "RAM", label: "RAM", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.RAM,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "RAM", $$v)
-                        },
-                        expression: "scope.row.RAM"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.RAM))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "RAMbrand", label: "RAM brand", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.RAMbrand,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "RAMbrand", $$v)
-                        },
-                        expression: "scope.row.RAMbrand"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.RAMbrand))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "MACaddress", label: "MAC address", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.MACaddress,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "MACaddress", $$v)
-                        },
-                        expression: "scope.row.MACaddress"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.MACaddress))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "location", label: "location", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.location,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "location", $$v)
-                        },
-                        expression: "scope.row.location"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.location))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "HDD", label: "H.D.D", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.HDD,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "HDD", $$v)
-                        },
-                        expression: "scope.row.HDD"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.HDD))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "HDDbrand", label: "H.D.D brand", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.HDDbrand,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "HDDbrand", $$v)
-                        },
-                        expression: "scope.row.HDDbrand"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.HDDbrand))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "services", label: "services", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.services,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "services", $$v)
-                        },
-                        expression: "scope.row.services"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.services))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "softwares", label: "softwares", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.softwares,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "softwares", $$v)
-                        },
-                        expression: "scope.row.softwares"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.softwares))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "owners", label: "owners", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.owners,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "owners", $$v)
-                        },
-                        expression: "scope.row.owners"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.owners))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { prop: "usernames", label: "user names", width: "110px" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c("el-input", {
-                      attrs: { size: "small" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleEdit(scope.$index, scope.row)
-                        }
-                      },
-                      model: {
-                        value: scope.row.usernames,
-                        callback: function($$v) {
-                          _vm.$set(scope.row, "usernames", $$v)
-                        },
-                        expression: "scope.row.usernames"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(scope.row.usernames))])
-                  ]
-                }
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _vm.updatedelete
-            ? _c("el-table-column", {
-                attrs: { label: "Operations", width: "250px", fixed: "right" },
-                scopedSlots: _vm._u(
-                  [
-                    {
-                      key: "default",
-                      fn: function(scope) {
-                        return [
-                          _c(
-                            "el-button",
-                            {
-                              attrs: { size: "mini", type: "submit" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.handlechange(
-                                    scope.$index,
-                                    scope.row
-                                  )
-                                }
-                              }
+          _vm._l(_vm.fields, function(field) {
+            return _c("el-table-column", {
+              attrs: { prop: field.prop, label: field.label, width: "110px" },
+              scopedSlots: _vm._u(
+                [
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("el-input", {
+                          attrs: { size: "small" },
+                          on: {
+                            change: function($event) {
+                              return _vm.handleEdit(scope.$index, scope.row)
+                            }
+                          },
+                          model: {
+                            value: scope.row[field.prop],
+                            callback: function($$v) {
+                              _vm.$set(scope.row, field.prop, $$v)
                             },
-                            [_vm._v("submit changes")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-button",
-                            {
-                              attrs: { size: "mini", type: "danger" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.handleDelete(
-                                    scope.$index,
-                                    scope.row
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("Delete")]
-                          )
-                        ]
-                      }
+                            expression: "scope.row[field.prop]"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(scope.row[field.prop]))])
+                      ]
                     }
-                  ],
-                  null,
-                  false,
-                  3926568920
-                )
-              })
-            : _vm._e()
+                  }
+                ],
+                null,
+                true
+              )
+            })
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "Operations", width: "250px", fixed: "right" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { size: "mini", type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.handlechange(scope.$index, scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("submit changes")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { size: "mini", type: "danger" },
+                        on: {
+                          click: function($event) {
+                            return _vm.handleDelete(scope.$index, scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
         ],
-        1
+        2
       )
     ],
     1
@@ -100993,445 +99993,53 @@ var render = function() {
             "el-form",
             { staticClass: "demo-ruleForm", attrs: { "label-width": "120px" } },
             [
-              _c(
-                "el-form-item",
-                {
-                  class: { invalid: _vm.$v.host.hostname.$error },
-                  attrs: { label: "host name", prop: "hostname" }
-                },
-                [
-                  _c("el-input", {
-                    on: {
-                      blur: function($event) {
-                        return _vm.$v.host.hostname.$touch()
-                      }
-                    },
-                    model: {
-                      value: _vm.host.hostname,
-                      callback: function($$v) {
-                        _vm.$set(_vm.host, "hostname", $$v)
+              _vm._l(_vm.fields, function(field) {
+                return field.show
+                  ? _c(
+                      "el-form-item",
+                      {
+                        class: {
+                          invalid: _vm.$v.fields[field.prop].input.$error
+                        },
+                        attrs: { prop: field.prop, label: field.label }
                       },
-                      expression: "host.hostname"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.$v.host.hostname.$error
-                    ? _c("p", [_vm._v(" you have to enter a hostname")])
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: "IP", prop: "IP" } },
-                [
-                  _c("el-input", {
-                    on: {
-                      blur: function($event) {
-                        return _vm.$v.host.IP.$touch()
-                      }
-                    },
-                    model: {
-                      value: _vm.host.IP,
-                      callback: function($$v) {
-                        _vm.$set(_vm.host, "IP", $$v)
-                      },
-                      expression: "host.IP"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.$v.host.IP.$error
-                    ? _c("p", { class: { invalid: _vm.$v.host.IP.$error } }, [
-                        _vm._v(" you have to enter a valid IP address")
-                      ])
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: "collector", prop: "collector" } },
-                [
-                  _c("el-input", {
-                    model: {
-                      value: _vm.host.collector,
-                      callback: function($$v) {
-                        _vm.$set(_vm.host, "collector", $$v)
-                      },
-                      expression: "host.collector"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.assetValue
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "asset value", prop: "assetValue" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.assetValue,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "assetValue", $$v)
-                          },
-                          expression: "host.assetValue"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.icon
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "icon", prop: "icon" } },
-                    [
-                      _c("el-input", {
-                        on: {
-                          blur: function($event) {
-                            return _vm.$v.host.icon.$touch()
-                          }
-                        },
-                        model: {
-                          value: _vm.host.icon,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "icon", $$v)
-                          },
-                          expression: "host.icon"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.$v.host.icon.$error
-                        ? _c(
-                            "p",
-                            { class: { invalid: _vm.$v.host.icon.$error } },
-                            [_vm._v(" you have to enter a valid url")]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.FQND
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "FQND", prop: "FQND" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.FQND,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "FQND", $$v)
-                          },
-                          expression: "host.FQND"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.OS
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "OS", prop: "OS" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.OS,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "OS", $$v)
-                          },
-                          expression: "host.OS"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.OSversion
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "OS version", prop: "OSversion" } },
-                    [
-                      _c("el-input", {
-                        on: {
-                          blur: function($event) {
-                            return _vm.$v.host.OSversion.$touch()
-                          }
-                        },
-                        model: {
-                          value: _vm.host.OSversion,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "OSversion", $$v)
-                          },
-                          expression: "host.OSversion"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.$v.host.OSversion.$error
-                        ? _c(
-                            "p",
-                            {
-                              class: { invalid: _vm.$v.host.OSversion.$error }
-                            },
-                            [_vm._v(" you have to enter a number")]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.CPU
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "CPU", prop: "CPU" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.CPU,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "CPU", $$v)
-                          },
-                          expression: "host.CPU"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.CPUbrand
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "CPU brand", prop: "CPUbrand" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.CPUbrand,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "CPUbrand", $$v)
-                          },
-                          expression: "host.CPUbrand"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.RAM
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "RAM", prop: "RAM" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.RAM,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "RAM", $$v)
-                          },
-                          expression: "host.RAM"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.RAMbrand
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "RAM brand", prop: "RAMbrand" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.RAMbrand,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "RAMbrand", $$v)
-                          },
-                          expression: "host.RAMbrand"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.MACaddress
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "MAC address", prop: "MACaddress" } },
-                    [
-                      _c("el-input", {
-                        on: {
-                          blur: function($event) {
-                            return _vm.$v.host.MACaddress.$touch()
-                          }
-                        },
-                        model: {
-                          value: _vm.host.MACaddress,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "MACaddress", $$v)
-                          },
-                          expression: "host.MACaddress"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.$v.host.MACaddress.$error
-                        ? _c(
-                            "p",
-                            {
-                              class: { invalid: _vm.$v.host.MACaddress.$error }
-                            },
-                            [_vm._v(" you have to enter a valid MAC address")]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.servicesnum, function(service, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "service", prop: "service" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.services[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.services, index, $$v)
-                        },
-                        expression: "services[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
+                      [
+                        _vm._l(field.num, function(single, index) {
+                          return field.multi
+                            ? _c("el-input", {
+                                staticClass: "multigroup",
+                                model: {
+                                  value: field.input[index],
+                                  callback: function($$v) {
+                                    _vm.$set(field.input, index, $$v)
+                                  },
+                                  expression: "field.input[index]"
+                                }
+                              })
+                            : _c("el-input", {
+                                on: {
+                                  blur: function($event) {
+                                    _vm.$v.fields[field.prop].input.$touch()
+                                  }
+                                },
+                                model: {
+                                  value: field.input,
+                                  callback: function($$v) {
+                                    _vm.$set(field, "input", $$v)
+                                  },
+                                  expression: "field.input"
+                                }
+                              })
+                        }),
+                        _vm._v(" "),
+                        _vm.$v.fields[field.prop].input.$error
+                          ? _c("p", [_vm._v(" " + _vm._s(field.message))])
+                          : _vm._e()
+                      ],
+                      2
+                    )
+                  : _vm._e()
               }),
-              _vm._v(" "),
-              _vm._l(_vm.usernamesnum, function(username, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "username", prop: "username" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.usernames[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.usernames, index, $$v)
-                        },
-                        expression: "usernames[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.ownersnum, function(owner, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "owner", prop: "owner" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.owners[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.owners, index, $$v)
-                        },
-                        expression: "owners[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _vm.location
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "location", prop: "location" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.location,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "location", $$v)
-                          },
-                          expression: "host.location"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.softwaresnum, function(software, index) {
-                return _c(
-                  "el-form-item",
-                  { attrs: { label: "software", prop: "software" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.softwares[index],
-                        callback: function($$v) {
-                          _vm.$set(_vm.softwares, index, $$v)
-                        },
-                        expression: "softwares[index]"
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _vm.HDD
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "H.D.D", prop: "HDD" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.HDD,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "HDD", $$v)
-                          },
-                          expression: "host.HDD"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.HDDbrand
-                ? _c(
-                    "el-form-item",
-                    { attrs: { label: "H.D.D brand", prop: "HDDbrand" } },
-                    [
-                      _c("el-input", {
-                        model: {
-                          value: _vm.host.HDDbrand,
-                          callback: function($$v) {
-                            _vm.$set(_vm.host, "HDDbrand", $$v)
-                          },
-                          expression: "host.HDDbrand"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
               _vm._v(" "),
               _c(
                 "el-button",
@@ -101451,268 +100059,37 @@ var render = function() {
       _c(
         "el-col",
         { attrs: { span: 8 } },
-        [
-          _c(
-            "el-row",
-            [
-              _c(
+        _vm._l(_vm.fields, function(field, index) {
+          return field.buttonshow
+            ? _c(
                 "el-button",
                 {
+                  staticClass: "buttons",
                   attrs: { round: "" },
                   on: {
                     click: function($event) {
-                      _vm.assetValue = true
+                      return _vm.buttonclick(index)
                     }
                   }
                 },
-                [_vm._v("asset value")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.icon = true
-                    }
-                  }
-                },
-                [_vm._v("icon")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.FQND = true
-                    }
-                  }
-                },
-                [_vm._v("FQND")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.OS = true
-                    }
-                  }
-                },
-                [_vm._v("OS")]
+                [
+                  field.multi
+                    ? _c("div", [
+                        _vm._v(
+                          "\n        " +
+                            _vm._s(field.label) +
+                            "(" +
+                            _vm._s(field.num) +
+                            ")\n      "
+                        )
+                      ])
+                    : _c("div", [
+                        _vm._v("\n        " + _vm._s(field.label) + "\n      ")
+                      ])
+                ]
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.OSversion = true
-                    }
-                  }
-                },
-                [_vm._v("OS version")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.CPU = true
-                    }
-                  }
-                },
-                [_vm._v("CPU")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.CPUbrand = true
-                    }
-                  }
-                },
-                [_vm._v("CPU brand")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.RAM = true
-                    }
-                  }
-                },
-                [_vm._v("RAM")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.RAMbrand = true
-                    }
-                  }
-                },
-                [_vm._v("RAM brand")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.MACaddress = true
-                    }
-                  }
-                },
-                [_vm._v("MAC address")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.servicesnum++
-                    }
-                  }
-                },
-                [_vm._v("services(" + _vm._s(_vm.servicesnum) + ")")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.usernamesnum++
-                    }
-                  }
-                },
-                [_vm._v("usernames(" + _vm._s(_vm.usernamesnum) + ")")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.ownersnum++
-                    }
-                  }
-                },
-                [_vm._v("owners(" + _vm._s(_vm.ownersnum) + ")")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.location = true
-                    }
-                  }
-                },
-                [_vm._v("location")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "el-row",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.softwaresnum++
-                    }
-                  }
-                },
-                [_vm._v("softwares(" + _vm._s(_vm.softwaresnum) + ")")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.HDD = true
-                    }
-                  }
-                },
-                [_vm._v("H.D.D")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: { round: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.HDDbrand = true
-                    }
-                  }
-                },
-                [_vm._v("H.D.D brand")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("br")
-        ],
+            : _vm._e()
+        }),
         1
       )
     ],
@@ -120950,6 +119327,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signin_vue_vue_type_template_id_5eb2bea6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/test.vue":
+/*!******************************************!*\
+  !*** ./resources/js/components/test.vue ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./test.vue?vue&type=script&lang=js& */ "./resources/js/components/test.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/test.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/test.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/test.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./test.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/test.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

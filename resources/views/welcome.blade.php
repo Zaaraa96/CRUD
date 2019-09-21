@@ -22,8 +22,7 @@
         <h5>cannot update and delete</h5>
       @endcannot
 
-      <div id="app" :updatedeletee="true">
-        <App  :updatedeletee="true" ></App>
+      <div id="app">
   </div>
 
   <script src="/js/app.js"></script>

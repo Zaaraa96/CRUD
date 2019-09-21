@@ -6,168 +6,17 @@
       height="1250"
       stripe
       style="width: 100%">
-      <el-table-column
-        prop="hostname"
-        label="Host name"
+      <el-table-column v-for="field in fields"
+        :prop="field.prop"
+        :label="field.label"
         width="110px">
         <template scope="scope">
-              <el-input size="small" v-model="scope.row.hostname" @change="handleEdit(scope.$index, scope.row)"></el-input>
-              <span>{{scope.row.hostname}}</span>
+              <el-input size="small" v-model="scope.row[field.prop]" @change="handleEdit(scope.$index, scope.row)"></el-input>
+              <span>{{scope.row[field.prop]}}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="IP"
-        label="IP address"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.IP" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.IP}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="collector"
-        label="collector"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.collector" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.collector}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="assetValue"
-        label="asset Value"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.assetValue" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.assetValue}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="icon"
-        label="icon" width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.icon" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.icon}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="FQND"
-        label="FQND"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.FQND" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.FQND}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="OS"
-        label="OS"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.OS" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.OS}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="OSversion"
-        label="OS version"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.OSversion" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.OSversion}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="CPU"
-        label="CPU"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.CPU" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.CPU}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="CPUbrand"
-        label="CPU brand"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.CPUbrand" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.CPUbrand}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="RAM"
-        label="RAM"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.RAM" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.RAM}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="RAMbrand"
-        label="RAM brand"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.RAMbrand" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.RAMbrand}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="MACaddress"
-        label="MAC address"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.MACaddress" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.MACaddress}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="location"
-        label="location"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.location" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.location}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="HDD"
-        label="H.D.D"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.HDD" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.HDD}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-        prop="HDDbrand"
-        label="H.D.D brand"
-        width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.HDDbrand" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.HDDbrand}}</span>
-</template>
-      </el-table-column>
-      <el-table-column
-      prop="services"
-      label="services"
-      width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.services" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.services}}</span>
-</template>
-    </el-table-column>
 
-    <el-table-column
-      prop="softwares"
-      label="softwares"
-      width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.softwares" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.softwares}}</span>
-</template>
-    </el-table-column>
-    <el-table-column
-     prop="owners"
-     label="owners"
-     width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.owners" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.owners}}</span>
-</template>
-   </el-table-column>
    <el-table-column
-     prop="usernames"
-     label="user names"
-     width="110px"> <template scope="scope">
-      <el-input size="small" v-model="scope.row.usernames" @change="handleEdit(scope.$index, scope.row)"></el-input>
-      <span>{{scope.row.usernames}}</span>
-</template>
-   </el-table-column>
-   <el-table-column v-if="updatedelete"
       label="Operations"
       width="250px"
       fixed="right">
@@ -190,13 +39,92 @@
 
 <script>
   export default {
-    props: {
-        updatedelete:Boolean,
-      },
+
     data() {
       return {
         data:[],
-      //  canupdatedelete: false,
+        fields:[
+          {
+            prop:"hostname",
+            label:"Host name",
+          },
+          {
+            prop:"IP",
+            label:"IP address",
+          },
+          {
+            prop:"collector",
+            label:"collector",
+          },
+          {
+            prop:"assetValue",
+            label:"asset Value",
+          },
+          {
+            prop:"icon",
+            label:"icon",
+          },
+          {
+            prop:"FQND",
+            label:"FQND",
+          },
+          {
+            prop:"OS",
+            label:"OS",
+          },
+          {
+            prop:"OSversion",
+            label:"OS version",
+          },
+          {
+            prop:"CPU",
+            label:"CPU",
+          },
+          {
+            prop:"CPUbrand",
+            label:"CPU brand",
+          },
+          {
+            prop:"RAM",
+            label:"RAM",
+          },
+          {
+            prop:"RAMbrand",
+            label:"RAM brand",
+          },
+          {
+            prop:"MACaddress",
+            label:"MAC address",
+          },
+          {
+            prop:"location",
+            label:"location",
+          },
+          {
+            prop:"HDD",
+            label:"H.D.D",
+          },
+          {
+            prop:"HDDbrand",
+            label:"H.D.D brand",
+          },
+          {
+            prop:"services",
+            label:"services",
+          },
+          {
+            prop:"softwares",
+            label:"softwares",
+          },
+          {
+            prop:"usernames",
+            label:"user names",
+          },
+          {
+            prop:"owners",
+            label:"owners",
+          },
+        ]
       }
     },
     methods: {
@@ -208,26 +136,10 @@
 
       },
       handlechange(index, row){
-        if(updatedelete){
             let url= "http://localhost:8000/api/change/";
             url+= row.id;
             let host={};
-            host.hostname= row.hostname;
-            host.IP= row.IP;
-            host.collector=row.collector;
-            host.assetValue=row.assetValue;
-            host.icon=row.icon;
-            host.FQND=row.FQND;
-            host.OS=row.OS;
-            host.OSversion=row.OSversion;
-            host.CPU=row.CPU;
-            host.CPUbrand=row.CPUbrand;
-            host.RAM=row.RAM;
-            host.RAMbrand=row.RAMbrand;
-            host.MACaddress=row.MACaddress;
-            host.location=row.location;
-            host.HDD=row.HDD;
-            host.HDDbrand=row.HDDbrand;
+            host= row;
             host.services= row.services.split(",");
             host.softwares= row.softwares.split(",");
             host.usernames= row.usernames.split(",");
@@ -239,11 +151,11 @@
             }, error =>{
               console.log(error);
             });
-      //  location.reload();
-        }
+      // location.reload();
+
       },
       handleDelete(index, row) {
-        if(updatedelete){
+
           let url= "http://localhost:8000/api/delete/";
           url+= row.id;
           this.$http.get(url)
@@ -252,16 +164,13 @@
           })
           .then(data=> {
           });
-          //location.reload();
-        }
+          location.reload();
+
 
       },
       },
 
     mounted:function() {
-                //this.canupdatedelete=this.updatedelete;
-                // console.log(this.canupdatedelete);
-                // console.log(this.updatedelete);
                 let table={};
                 let tableData= [];
                 this.$http.get('/api/dashboard')

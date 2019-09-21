@@ -1,74 +1,18 @@
 <template>
     <el-row :gutter="20">
        <el-col :span="8" :offset="4">
-      <el-form label-width="120px" class="demo-ruleForm">
+         <el-form label-width="120px" class="demo-ruleForm">
 
-        <el-form-item label="host name" prop="hostname" :class="{invalid: $v.host.hostname.$error}">
-        <el-input v-model="host.hostname" @blur="$v.host.hostname.$touch()"></el-input>
-      <p v-if="$v.host.hostname.$error"> you have to enter a hostname</p></el-form-item>
+           <el-form-item v-for="field in fields" v-if="field.show"
+             :prop="field.prop"
+             :label="field.label"
+             :class="{invalid: $v.fields[field.prop].input.$error}"
+           >
+        <el-input class="multigroup" v-if="field.multi" v-for="(single,index) in field.num" v-model="field.input[index]" ></el-input>
+        <el-input v-else v-model="field.input" @blur="$v.fields[field.prop].input.$touch()"></el-input>
 
-        <el-form-item label="IP" prop="IP" >
-
-        <el-input v-model="host.IP" @blur="$v.host.IP.$touch()"></el-input>
-      <p v-if="$v.host.IP.$error" :class="{invalid: $v.host.IP.$error}"> you have to enter a valid IP address</p></el-form-item>
-        <el-form-item label="collector" prop="collector">
-
-        <el-input v-model="host.collector"></el-input></el-form-item>
-
-        <el-form-item label="asset value" prop="assetValue" v-if="assetValue">
-
-        <el-input v-model="host.assetValue"></el-input></el-form-item>
-        <el-form-item label="icon" prop="icon"   v-if="icon" >
-
-        <el-input v-model="host.icon" @blur="$v.host.icon.$touch()"></el-input>
-      <p v-if="$v.host.icon.$error" :class="{invalid: $v.host.icon.$error}"> you have to enter a valid url</p></el-form-item>
-        <el-form-item label="FQND" prop="FQND"   v-if="FQND">
-
-        <el-input v-model="host.FQND"></el-input></el-form-item>
-        <el-form-item label="OS" prop="OS"   v-if="OS">
-
-        <el-input v-model="host.OS"></el-input></el-form-item>
-        <el-form-item label="OS version" prop="OSversion"   v-if="OSversion" >
-
-        <el-input v-model="host.OSversion" @blur="$v.host.OSversion.$touch()"></el-input>
-      <p v-if="$v.host.OSversion.$error" :class="{invalid: $v.host.OSversion.$error}"> you have to enter a number</p></el-form-item>
-        <el-form-item label="CPU" prop="CPU"   v-if="CPU">
-
-        <el-input v-model="host.CPU"></el-input></el-form-item>
-        <el-form-item label="CPU brand" prop="CPUbrand"   v-if="CPUbrand">
-
-        <el-input v-model="host.CPUbrand"></el-input></el-form-item>
-        <el-form-item label="RAM" prop="RAM"   v-if="RAM">
-
-        <el-input v-model="host.RAM"></el-input></el-form-item>
-        <el-form-item label="RAM brand" prop="RAMbrand"   v-if="RAMbrand">
-
-        <el-input v-model="host.RAMbrand"></el-input></el-form-item>
-        <el-form-item label="MAC address" prop="MACaddress"   v-if="MACaddress">
-
-        <el-input v-model="host.MACaddress" @blur="$v.host.MACaddress.$touch()"></el-input>
-      <p v-if="$v.host.MACaddress.$error" :class="{invalid: $v.host.MACaddress.$error}"> you have to enter a valid MAC address</p></el-form-item>
-        <el-form-item label="service" prop="service"   v-for="(service,index) in servicesnum">
-
-        <el-input v-model="services[index]"></el-input></el-form-item>
-        <el-form-item label="username" prop="username"   v-for="(username,index) in usernamesnum">
-
-        <el-input v-model="usernames[index]"></el-input></el-form-item>
-        <el-form-item label="owner" prop="owner"   v-for="(owner,index) in ownersnum">
-
-        <el-input v-model="owners[index]"></el-input></el-form-item>
-        <el-form-item label="location" prop="location"   v-if="location">
-
-        <el-input v-model="host.location"></el-input></el-form-item>
-        <el-form-item label="software" prop="software"   v-for="(software,index) in softwaresnum">
-
-        <el-input v-model="softwares[index]"></el-input></el-form-item>
-        <el-form-item label="H.D.D" prop="HDD"   v-if="HDD">
-
-        <el-input v-model="host.HDD"></el-input></el-form-item>
-        <el-form-item label="H.D.D brand" prop="HDDbrand"   v-if="HDDbrand">
-
-        <el-input v-model="host.HDDbrand"></el-input></el-form-item>
+        <p v-if="$v.fields[field.prop].input.$error"> {{field.message}}</p>
+      </el-form-item>
 
         <el-button type="primary" @click="submit" :disabled="$v.$invalid">
           Submit</el-button>
@@ -76,40 +20,16 @@
       </el-form>
       </el-col>
       <el-col :span="8">
-        <el-row>
-        <el-button round  @click="assetValue=true">asset value</el-button>
-        <el-button round  @click="icon=true">icon</el-button>
-        <el-button round  @click="FQND=true">FQND</el-button>
-        <el-button round  @click="OS=true">OS</el-button>
-      </el-row>
 
-      <br>
-      <el-row>
-        <el-button round  @click="OSversion=true">OS version</el-button>
-        <el-button round  @click="CPU=true">CPU</el-button>
-        <el-button round  @click="CPUbrand=true">CPU brand</el-button>
-        <el-button round  @click="RAM=true">RAM</el-button>
-        </el-row>
-        <br>
-        <el-row>
-        <el-button round  @click="RAMbrand=true">RAM brand</el-button>
-        <el-button round  @click="MACaddress=true">MAC address</el-button>
-        <el-button round  @click="servicesnum++">services({{servicesnum}})</el-button>
-        </el-row>
-        <br>
-        <el-row>
-          <el-button round  @click="usernamesnum++">usernames({{usernamesnum}})</el-button>
-          <el-button round  @click="ownersnum++">owners({{ownersnum}})</el-button>
-          <el-button round  @click="location=true">location</el-button>
-          </el-row>
-          <br>
+        <el-button class="buttons" round v-for="(field,index) in fields" v-if="field.buttonshow" @click="buttonclick(index)">
+          <div v-if="field.multi">
+            {{field.label}}({{field.num}})
+          </div>
+          <div v-else>
+            {{field.label}}
+          </div>
+        </el-button>
 
-          <el-row>
-          <el-button round  @click="softwaresnum++">softwares({{softwaresnum}})</el-button>
-          <el-button round  @click="HDD=true">H.D.D</el-button>
-          <el-button round  @click="HDDbrand=true">H.D.D brand</el-button>
-          </el-row>
-          <br>
           </el-col>
     </el-row>
 
@@ -121,74 +41,252 @@ export default {
 
 data() {
   return {
-    assetValue: false,
-    icon: false,
-    FQND:false,
-    OS:false,
-    OSversion:false,
-    CPU:false,
-    CPUbrand:false,
-    RAM:false,
-    RAMbrand:false,
-    MACaddress:false,
-    servicesnum:0,
-    usernamesnum:0,
-    ownersnum:0,
-    location:false,
-    softwaresnum:0,
-    HDD:false,
-    HDDbrand:false,
-    host: {
-      hostname: '',
-      IP: '',
-      collector: '',
-      assetValue: '',
-      icon: '',
-      FQND: '',
-      OS: '',
-      OSversion: '',
-      CPU: '',
-      CPUbrand: '',
-      RAM: '',
-      RAMbrand: '',
-      MACaddress: '',
-      location: '',
-      HDD: '',
-      HDDbrand: ''
+    fields:{
+      hostname:{
+        prop:"hostname",
+        label:"Host name",
+        show: true,
+        buttonshow: false,
+        multi: false,
+        num: 1,
+        message: " you have to enter a hostname",
+        input: "",
+      },
+      IP:{
+        prop:"IP",
+        label:"IP address",
+        show: true,
+        buttonshow: false,
+        multi: false,
+        num: 1,
+        message: "you have to enter a valid IP address",
+        input: "",
+      },
+      collector:{
+        prop:"collector",
+        label:"collector",
+        show: true,
+        buttonshow: false,
+        multi: false,
+        num: 1,
+        message: "",
+        input: "",
+      },
+      asssetValue:{
+        prop:"assetValue",
+        label:"asset Value",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      icon:{
+        prop:"icon",
+        label:"icon",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "you have to enter a valid url",
+        input: "",
+      },
+      FQND:{
+        prop:"FQND",
+        label:"FQND",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      OS:{
+        prop:"OS",
+        label:"OS",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      OSversion:{
+        prop:"OSversion",
+        label:"OS version",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "you have to enter a number",
+        input: "",
+      },
+      CPU:{
+        prop:"CPU",
+        label:"CPU",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      CPUbrand:{
+        prop:"CPUbrand",
+        label:"CPU brand",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      RAM:{
+        prop:"RAM",
+        label:"RAM",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      RAMbrand:{
+        prop:"RAMbrand",
+        label:"RAM brand",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        message: "",
+        input: "",
+      },
+      MACaddress:{
+        prop:"MACaddress",
+        label:"MAC address",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "you have to enter a valid MAC address",
+        input: "",
+      },
+      location:{
+        prop:"location",
+        label:"location",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      HDD:{
+        prop:"HDD",
+        label:"H.D.D",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      HDDbrand:{
+        prop:"HDDbrand",
+        label:"H.D.D brand",
+        show: false,
+        buttonshow: true,
+        multi: false,
+        num: 0,
+        message: "",
+        input: "",
+      },
+      services:{
+        prop:"services",
+        label:"services",
+        show: false,
+        buttonshow: true,
+        multi: true,
+        num: 0,
+        message: "",
+        input: [],
+      },
+      softwares:{
+        prop:"softwares",
+        label:"softwares",
+        show: false,
+        buttonshow: true,
+        multi: true,
+        num: 0,
+        message: "",
+        input: [],
+      },
+      usernames:{
+        prop:"usernames",
+        label:"user names",
+        show: false,
+        buttonshow: true,
+        multi: true,
+        num: 0,
+        message: "",
+        input: [],
+      },
+      owners:{
+        prop:"owners",
+        label:"owners",
+        show: false,
+        buttonshow: true,
+        multi: true,
+        num: 0,
+        message: "",
+        input: [],
+      },
     },
-      services:[],
-      softwares:[],
-      owners:[],
-      usernames:[],
 
     }},
     validations: {
-      host:{
+      fields:{
         hostname: {
-          required,
+          input:{required,}
         },
         IP:{
-          ipAddress,
+          input:{ipAddress,}
         },
         icon: {
-          url,
+          input:{url,}
         },
         OSversion: {
-          numeric,
+          input:{numeric,}
         },
         MACaddress: {
-          macAddress:macAddress(':'),
+          input:{macAddress:macAddress(':'),}
         },
+        collector: {input:{},},
+        assetValue: {input:{},},
+        icon: {input:{},},
+        FQND: {input:{},},
+        OS: {input:{},},
+        CPU: {input:{},},
+        CPUbrand: {input:{},},
+        RAM: {input:{},},
+        RAMbrand: {input:{},},
+        location: {input:{},},
+        HDD: {input:{},},
+        HDDbrand: {input:{},},
+        services:{input:{},},
+        owners:{input:{},},
+        usernames:{input:{},},
+        softwares:{input:{},},
       },
 
     },
     methods: {
       submit() {
-        let host= this.host;
-        host.services= this.services;
-        host.softwares= this.softwares;
-        host.usernames= this.usernames;
-        host.owners= this.owners;
+        let host= {};
+        for (var i = 0; i < this.fields.length; i++) {
+          host[this.fields[i].prop]= this.fields[i].input;
+        }
+        console.log(host);
             this.$http.post('/api/dashboard',host)
             .then(response=>{
               console.log(response);
@@ -197,10 +295,19 @@ data() {
             });
         //window.location.replace("http://localhost:8000/dashboard");
       },
+      buttonclick(index){
+        this.fields[index].show=true;
+        if(this.fields[index].multi)
+        {
+          this.fields[index].num++;
+        }
+        else {
+          this.fields[index].num=1;
+        }
+      },
       },
 
 }
-
 
 </script>
 <style >
@@ -208,12 +315,16 @@ data() {
     margin-left: 30%;
     width: 30%;
   }
-  #buttons{
+  .buttons{
     margin-left: 5%;
+    margin-bottom: 3%;
     width: 30%;
     display: inline-block;
   }
   .invalid{
     color: red;
+  }
+  .multigroup{
+    margin-bottom: 0.5%;
   }
 </style>
