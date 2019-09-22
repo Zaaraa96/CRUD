@@ -44,37 +44,37 @@ class HostController extends Controller
       // $userid = $user.id;
       // $user="user".(string)$userid;
       // Redis::lpush($user ,'create');
-      // $validator = Validator::make($request->all(), [
-      //   'hostname'=> 'required',
-      //   'IP'=>'Nullable|ip',
-      //   'collector'=>'Nullable',
-      //   'assetValue'=>'Nullable',
-      //   'icon'=>'Nullable|url',
-      //   'FQND'=>'Nullable',
-      //   'OS'=>'Nullable',
-      //   'OSversion'=>'Nullable|numeric',
-      //   'CPU'=>'Nullable',
-      //   'CPUbrand'=>'Nullable',
-      //   'RAM'=>'Nullable',
-      //   'RAMbrand'=>'Nullable',
-      //   'MACaddress'=>'Nullable|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
-      //   'location'=>'Nullable',
-      //   'HDD'=>'Nullable',
-      //   'HDDbrand'=>'Nullable',
-      //   'owners'=>'Nullable|array',
-      //   'softwares'=>'Nullable|array',
-      //   'services'=>'Nullable|array',
-      //   'usernames'=>'Nullable|array',
-      //   ]);
-      //
-      // if($validator->fails()){
-      //     return response([
-      //     'data' => [
-      //     'message' => $valiator->errors()
-      //     ],
-      //     'status' => 'error'
-      //     ], 422);
-      // }
+      $validator = Validator::make($request->all(), [
+        'hostname'=> 'required',
+        'IP'=>'Nullable|ip',
+        'collector'=>'Nullable',
+        'assetValue'=>'Nullable',
+        'icon'=>'Nullable|url',
+        'FQND'=>'Nullable',
+        'OS'=>'Nullable',
+        'OSversion'=>'Nullable|numeric',
+        'CPU'=>'Nullable',
+        'CPUbrand'=>'Nullable',
+        'RAM'=>'Nullable',
+        'RAMbrand'=>'Nullable',
+        'MACaddress'=>'Nullable|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+        'location'=>'Nullable',
+        'HDD'=>'Nullable',
+        'HDDbrand'=>'Nullable',
+        'owners'=>'Nullable|array',
+        'softwares'=>'Nullable|array',
+        'services'=>'Nullable|array',
+        'usernames'=>'Nullable|array',
+        ]);
+
+      if($validator->fails()){
+          return response([
+          'data' => [
+          'message' => $validator->errors()
+          ],
+          'status' => 'error'
+          ], 422);
+      }
 
       $input = $request->all();
       $insertedId = \App\host::create($input)->id;

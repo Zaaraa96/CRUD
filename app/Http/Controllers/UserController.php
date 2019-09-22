@@ -26,9 +26,8 @@ class UserController extends Controller
                 'status' => 'error'
             ],403);
         }
-        $userid = Auth::user();
-        return $userid->api_token;
-        //return (auth()->user());
+        $user = Auth::user();
+        return $user->api_token;
     }
 
     // public function register(Request $request)

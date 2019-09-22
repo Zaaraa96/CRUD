@@ -1,7 +1,7 @@
 <template>
   <div class="signin">
     <el-card>
-      <h2>signin</h2>
+      <h2>sign in</h2>
       <el-form
         class="signin-form"
         ref="form"
@@ -23,12 +23,15 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-alert v-if="showerror"
+          title="you have entered wrong information"
+          type="error">
+        </el-alert>
+          <el-form-item>
           <el-button
             class="signin-button"
             type="primary"
-            native-type="submit"
-            block @click="submit"
+             @click="submit"
             >signin</el-button
           >
         </el-form-item>
@@ -45,7 +48,7 @@ export default {
   name: "signin",
   data() {
     return {
-
+      showerror: false,
       model: {
         email: "",
         password: ""
@@ -68,15 +71,18 @@ export default {
   methods: {
     submit() {
           let user={};
-          user.email= model.email;
-          user.password= model.password;
-          this.$http.post('/login',user)
+          user.email= this.model.email;
+          user.password= this.model.password;
+          this.$http.post('/api/login',user)
           .then(token=>{
-            console.log(token);
+            this.showerror=false;
+            localStorage.setItem('api_token', token.body);
+
+        window.location.replace("http://localhost:8000/dashboard");
           }, error =>{
             console.log(error);
+            this.showerror= true;
           });
-      window.location.replace("http://localhost:8000/dashboard");
     },
   }
 };
@@ -155,5 +161,13 @@ a {
   width: 340px;
   display: flex;
   justify-content: center;
+}
+.error{
+  width: 250px;
+  height: 40px;
+  border-radius: 10%;
+  border-width: 1px;
+  border-color: red;
+  background-color: pink;
 }
 </style>

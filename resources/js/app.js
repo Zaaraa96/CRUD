@@ -34,11 +34,21 @@ window.Vue = require('vue');
  import Vuelidate from 'vuelidate';
  import VueRouter from 'vue-router';
  import { routes } from './routes';
+ import VueLocalStorage from 'vue-localstorage';
  Vue.use(ElementUI);
  Vue.use(VueResource);
  Vue.use(Vuelidate);
  Vue.use(VueRouter);
+ Vue.use(VueLocalStorage);
 Vue.http.options.root= 'localhost:8000';
+Vue.http.interceptors.push(function(request,next) {
+    let url= request.url;
+    url+= '?api_token=';
+    let c=localStorage.getItem('api_token').toString();
+    url+= c;
+    request.url= url;
+    next();
+});
 
 const router = new VueRouter({
                 routes,

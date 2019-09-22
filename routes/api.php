@@ -15,19 +15,19 @@ use Illuminate\Support\Facades\Redis;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // Auth::routes();
+Route::post('/login','userController@login');
+Route::middleware('auth:api')->group(function(){
+  Route::get('/dashboard', 'HostController@index');
 
-Route::get('/dashboard', 'HostController@index');
+  Route::post('/dashboard', 'HostController@add');
 
+  Route::get('/delete/{id}','HostController@delete');
 
-Route::post('/dashboard', 'HostController@add');
-
-Route::get('/delete/{id}','HostController@delete');
-
-
-Route::post('/change/{id}', 'HostController@change');
+  Route::post('/change/{id}', 'HostController@change');
+});

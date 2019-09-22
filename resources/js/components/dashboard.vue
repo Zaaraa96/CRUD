@@ -3,10 +3,11 @@
     <el-table @row-click="handleCurrentChange" highlight-current-row
      :data='data'
      class="tb-edit"
-      height="1250"
+      height="600"
       stripe
       style="width: 100%">
       <el-table-column v-for="field in fields"
+
         :prop="field.prop"
         :label="field.label"
         width="110px">
@@ -151,7 +152,7 @@
             }, error =>{
               console.log(error);
             });
-      // location.reload();
+       location.reload();
 
       },
       handleDelete(index, row) {
