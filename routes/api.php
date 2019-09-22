@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\Redis;
 // Auth::routes();
 Route::post('/login','userController@login');
 Route::middleware('auth:api')->group(function(){
+
+  Route::get('/redis','HostController@redis');
+  
   Route::get('/dashboard', 'HostController@index');
 
   Route::post('/dashboard', 'HostController@add');

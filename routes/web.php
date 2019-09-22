@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Redis;
 
 //Auth::routes();
 // Route::post('/login', 'userController@login');
-//Route::get('/redis','HostController@redis');
 Route::get('/', function () {
     return view('welcome');
 });

@@ -11,19 +11,19 @@ class HostController extends Controller
 {
   public function redis(){
     $thisredis=[];
-
     $userid = Auth::id();
     $user="user".(string)$userid;
     Redis::lpush($user ,'redisCall');
-    //return Redis::lrange($user,0,-1);
     $users= Redis::keys('*');
-    //return $users[0];
     foreach ($users as $user) {
       $id2=substr($user,17);
       array_push($thisredis,Redis::lrange($id2,0,-1));
     }
-
-    return $thisredis;
+    $object = (object) [
+    'user' => $user,
+    'data' => $thisredis,
+  ];
+    return json_encode($object);
   }
     public function index(){
       $hosts=\App\host::all();
@@ -36,14 +36,10 @@ class HostController extends Controller
       $userid = Auth::id();
       $user="user".(string)$userid;
       Redis::lpush($user ,'read');
-      //Redis::lpush($user ,$userid);
       return $hosts;
     }
     public function add(Request $request){
-      //$user=request('user');
-      // $userid = $user.id;
-      // $user="user".(string)$userid;
-      // Redis::lpush($user ,'create');
+
       $validator = Validator::make($request->all(), [
         'hostname'=> 'required',
         'IP'=>'Nullable|ip',
@@ -107,6 +103,9 @@ class HostController extends Controller
         $username->username=$value;
         $username->save();
       endforeach;
+      $userid = Auth::id();
+      $user="user".(string)$userid;
+      Redis::lpush($user ,'create');
     }
 
     public function delete($id){
@@ -152,7 +151,7 @@ class HostController extends Controller
       if($validator->fails()){
           return response([
           'data' => [
-          'message' => $valiator->errors()
+          'message' => $validator->errors()
           ],
           'status' => 'error'
           ], 422);
