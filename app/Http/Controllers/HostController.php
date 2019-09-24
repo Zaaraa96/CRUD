@@ -12,15 +12,17 @@ class HostController extends Controller
   public function redis(){
     $thisredis=[];
     $userid = Auth::id();
-    $user="user".(string)$userid;
-    Redis::lpush($user ,'redisCall');
+    $user2="user".(string)$userid;
+    Redis::lpush($user2 ,'redisCall');
     $users= Redis::keys('*');
     foreach ($users as $user) {
       $id2=substr($user,17);
-      array_push($thisredis,Redis::lrange($id2,0,-1));
+      if($id2==$user2){
+        array_push($thisredis,Redis::lrange($id2,0,-1));
+      }
     }
     $object = (object) [
-    'user' => $user,
+    'user' => $user2,
     'data' => $thisredis,
   ];
     return json_encode($object);
