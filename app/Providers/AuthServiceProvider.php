@@ -27,7 +27,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         $user = Auth::user();
         Gate::define('updatedelete',function($user){
-            return $user->level==3;//admin
+            return $user->level==1;//admin
+            });
+        Gate::define('add',function($user){
+            return $user->level<=2;//admin or secretary
             });
 
     }

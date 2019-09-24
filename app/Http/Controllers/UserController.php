@@ -27,7 +27,13 @@ class UserController extends Controller
             ],403);
         }
         $user = Auth::user();
-        return $user->api_token;
+        $token= $user->api_token;
+        $level=$user->level;
+        $object = (object) [
+        'api_token' => $token,
+        'level' => $level,
+      ];
+        return json_encode($object);
     }
 
     // public function register(Request $request)

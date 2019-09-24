@@ -309,8 +309,13 @@ data() {
         }
       },
       },
+      mounted:function(){
+        let level=localStorage.getItem('level');
+
+      },
 
 }
+
 
 </script>
 <style >

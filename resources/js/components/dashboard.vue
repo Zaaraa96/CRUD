@@ -17,7 +17,7 @@
         </template>
       </el-table-column>
 
-   <el-table-column
+   <el-table-column v-if="deleteupdate"
       label="Operations"
       width="250px"
       fixed="right">
@@ -43,6 +43,7 @@
 
     data() {
       return {
+        deleteupdate:false,
         data:[],
         fields:[
           {
@@ -172,6 +173,11 @@
       },
 
     mounted:function() {
+
+        let level=localStorage.getItem('level');
+        if(level==1){
+          this.deleteupdate=true;
+        }
                 let table={};
                 let tableData= [];
                 this.$http.get('/api/dashboard')

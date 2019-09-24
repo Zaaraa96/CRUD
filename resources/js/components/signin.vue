@@ -74,10 +74,11 @@ export default {
           user.email= this.model.email;
           user.password= this.model.password;
           this.$http.post('/api/login',user)
-          .then(token=>{
+          .then(req=>{
             this.showerror=false;
-            localStorage.setItem('api_token', token.body);
-
+            let body=req.body;
+            localStorage.setItem('api_token', body.api_token);
+            localStorage.setItem('level', body.level);
         window.location.replace("http://localhost:8000/dashboard");
           }, error =>{
             console.log(error);

@@ -15,13 +15,6 @@
     </head>
     <body>
 
-      @can('updatedelete')
-        <h5>can update and delete</h5>
-      @endcan
-      @cannot('updatedelete')
-        <h5>cannot update and delete</h5>
-      @endcannot
-
       <div id="app">
   </div>
 

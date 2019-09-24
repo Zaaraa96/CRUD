@@ -3347,13 +3347,36 @@ __webpack_require__.r(__webpack_exports__);
   name: 'App',
   props: {},
   data: function data() {
-    return {};
+    return {
+      add: false,
+      loginshow: true,
+      logoutshow: false
+    };
   },
   components: {
     exampleComponent: _components_exampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     signin: _components_signin_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     signout: _components_signout_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     dashboard: _components_dashboard_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  mounted: function mounted() {
+    var level = localStorage.getItem('level');
+
+    if (level == 1) {
+      this.add = true;
+    }
+
+    if (level == 2) {
+      this.add = true;
+    }
+
+    if (localStorage.getItem('api_token') != '') {
+      this.logoutshow = true;
+      this.loginshow = false;
+    } else {
+      this.logoutshow = false;
+      this.loginshow = true;
+    }
   }
 });
 
@@ -3709,6 +3732,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.fields[index].num = 1;
       }
     }
+  },
+  mounted: function mounted() {
+    var level = localStorage.getItem('level');
   }
 });
 
@@ -3766,6 +3792,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      deleteupdate: false,
       data: [],
       fields: [{
         prop: "hostname",
@@ -3864,6 +3891,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var level = localStorage.getItem('level');
+
+    if (level == 1) {
+      this.deleteupdate = true;
+    }
+
     var table = {};
     var tableData = [];
     this.$http.get('/api/dashboard').then(function (data) {
@@ -4281,6 +4314,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.fields[index].num = 1;
       }
     }
+  },
+  mounted: function mounted() {
+    var level = localStorage.getItem('level');
   }
 });
 
@@ -4370,9 +4406,11 @@ __webpack_require__.r(__webpack_exports__);
       var user = {};
       user.email = this.model.email;
       user.password = this.model.password;
-      this.$http.post('/api/login', user).then(function (token) {
+      this.$http.post('/api/login', user).then(function (req) {
         _this.showerror = false;
-        localStorage.setItem('api_token', token.body);
+        var body = req.body;
+        localStorage.setItem('api_token', body.api_token);
+        localStorage.setItem('level', body.level);
         window.location.replace("http://localhost:8000/dashboard");
       }, function (error) {
         console.log(error);
@@ -10766,7 +10804,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Add scoped styles */\n#app[data-v-f348271a] {\n  padding: 20px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Add scoped styles */\n#app[data-v-f348271a] {\n  padding: 20px;\n}\n", ""]);
 
 // exports
 
@@ -99716,38 +99754,44 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "router-link",
-        { attrs: { to: "/add" } },
-        [
-          _c("el-button", { attrs: { type: "primary", plain: "" } }, [
-            _vm._v("add to table")
-          ])
-        ],
-        1
-      ),
+      _vm.add
+        ? _c(
+            "router-link",
+            { attrs: { to: "/add" } },
+            [
+              _c("el-button", { attrs: { type: "primary", plain: "" } }, [
+                _vm._v("add to table")
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "router-link",
-        { attrs: { to: "/login" } },
-        [
-          _c("el-button", { attrs: { type: "primary", plain: "" } }, [
-            _vm._v("log in")
-          ])
-        ],
-        1
-      ),
+      _vm.loginshow
+        ? _c(
+            "router-link",
+            { attrs: { to: "/login" } },
+            [
+              _c("el-button", { attrs: { type: "primary", plain: "" } }, [
+                _vm._v("log in")
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "router-link",
-        { attrs: { to: "/logout" } },
-        [
-          _c("el-button", { attrs: { type: "primary", plain: "" } }, [
-            _vm._v("log out")
-          ])
-        ],
-        1
-      ),
+      _vm.logoutshow
+        ? _c(
+            "router-link",
+            { attrs: { to: "/logout" } },
+            [
+              _c("el-button", { attrs: { type: "primary", plain: "" } }, [
+                _vm._v("log out")
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
@@ -99968,43 +100012,56 @@ var render = function() {
             })
           }),
           _vm._v(" "),
-          _c("el-table-column", {
-            attrs: { label: "Operations", width: "250px", fixed: "right" },
-            scopedSlots: _vm._u([
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    _c(
-                      "el-button",
-                      {
-                        attrs: { size: "mini", type: "submit" },
-                        on: {
-                          click: function($event) {
-                            return _vm.handlechange(scope.$index, scope.row)
-                          }
-                        }
-                      },
-                      [_vm._v("submit changes")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "el-button",
-                      {
-                        attrs: { size: "mini", type: "danger" },
-                        on: {
-                          click: function($event) {
-                            return _vm.handleDelete(scope.$index, scope.row)
-                          }
-                        }
-                      },
-                      [_vm._v("Delete")]
-                    )
-                  ]
-                }
-              }
-            ])
-          })
+          _vm.deleteupdate
+            ? _c("el-table-column", {
+                attrs: { label: "Operations", width: "250px", fixed: "right" },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { size: "mini", type: "submit" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.handlechange(
+                                    scope.$index,
+                                    scope.row
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("submit changes")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { size: "mini", type: "danger" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.handleDelete(
+                                    scope.$index,
+                                    scope.row
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        ]
+                      }
+                    }
+                  ],
+                  null,
+                  false,
+                  3926568920
+                )
+              })
+            : _vm._e()
         ],
         2
       )

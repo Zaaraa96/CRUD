@@ -39,7 +39,7 @@ class HostController extends Controller
       return $hosts;
     }
     public function add(Request $request){
-
+      if(Gate::allows('updatedelete')){
       $validator = Validator::make($request->all(), [
         'hostname'=> 'required',
         'IP'=>'Nullable|ip',
@@ -106,11 +106,13 @@ class HostController extends Controller
       $userid = Auth::id();
       $user="user".(string)$userid;
       Redis::lpush($user ,'create');
+      }else {
+        abort(403,'not-access');
+      }
     }
 
     public function delete($id){
-
-     //if(Gate::allows('updatedelete')){
+     if(Gate::allows('updatedelete')){
         $hosts=\App\host::where('id',$id)->delete();
         $owner=\App\owner::where('hostID',$id)->delete();
         $service=\App\service::where('hostID',$id)->delete();
@@ -119,12 +121,14 @@ class HostController extends Controller
         $userid = Auth::id();
         $user="user".(string)$userid;
         Redis::lpush($user ,'delete');
-     // }
-     //  abort(403,'not-access');
+       }else {
+         abort(403,'not-access');
+       }
+
 
     }
     public function change($id,Request $request){
-
+      if(Gate::allows('updatedelete')){
       $validator = Validator::make($request->all(), [
         'hostname'=> 'required',
         'IP'=>'Nullable|ip',
@@ -195,5 +199,8 @@ class HostController extends Controller
       $userid = Auth::id();
       $user="user".(string)$userid;
       Redis::lpush($user ,'change');
+      }else {
+        abort(403,'not-access');
+      }
     }
 }
