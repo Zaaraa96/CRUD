@@ -44,6 +44,12 @@
     data() {
       return {
         deleteupdate:false,
+        split:[
+          ['services','service'],
+          ['softwares','software'],
+          ['usernames','username'],
+          ['owners','owner'],
+        ],
         data:[],
         fields:[
           {
@@ -51,7 +57,7 @@
             label:"Host name",
           },
           {
-            prop:"IP",
+            prop:"ip",
             label:"IP address",
           },
           {
@@ -142,11 +148,13 @@
             url+= row.id;
             let host={};
             host= row;
-            host.services= row.services.split(",");
-            host.softwares= row.softwares.split(",");
-            host.usernames= row.usernames.split(",");
-            host.owners= row.owners.split(",");
-            console.log(host);
+            let split= this.split;
+            for (var i = 0; i < split.length; i++) {
+              let prop=split[i][0];
+              let rowprop=row[prop];
+              console.log(rowprop.split(","));
+              host[prop]=rowprop.split(",");
+            }
             this.$http.post(url,host)
             .then(response=>{
               console.log(response);
@@ -178,67 +186,46 @@
         if(level==1){
           this.deleteupdate=true;
         }
-                let table={};
+                let table=[];
                 let tableData= [];
                 this.$http.get('/api/dashboard')
                 .then(data=>{
                   console.log(data);
                   table=data.body;
+                  for (var i = 0; i < table.length; i++) {
+                    delete table[i].created_at;
+                    delete table[i].updated_at;
+                    let split=this.split;
+                    for (var k = 0; k < split.length; k++) {
+                      let prop=split[k][0];
+                      let p=split[k][1];
+                      let arr=[];
+                      let tableprop=table[i][prop];
+                      for (var j = 0; j < tableprop.length; j++) {
+                        let innertableprop=tableprop[j][p];
+                        arr[j]= innertableprop;
+                      }
+                      tableprop= arr.toString();
+                      table[i][prop]=tableprop;
+                    }
+                  }
                   for(let i=0; i<table.length; i++)
                   {
-                    tableData.push({
-                                  id: table[i].id,
-                                  hostname: table[i].hostname,
-                                  IP: table[i].ip,
-                                  collector: table[i].collector,
-                                  assetValue: table[i].assetValue,
-                                  icon: table[i].icon,
-                                  FQND: table[i].FQND,
-                                  OS: table[i].OS,
-                                  OSversion: table[i].OSversion,
-                                  CPU: table[i].CPU,
-                                  CPUbrand: table[i].CPUbrand,
-                                  RAM: table[i].RAM,
-                                  RAMbrand: table[i].RAMbrand,
-                                  MACaddress: table[i].MACaddress,
-                                  location: table[i].location,
-                                  HDD: table[i].HDD,
-                                  HDDbrand: table[i].HDDbrand,
-                                  services:[],
-                                  softwares:[],
-                                  owners:[],
-                                  usernames:[]
-                                });
-                      let arr=[];
-                      for(let j=0; j<table[i].services.length; j++)
-                      {
-                        arr[j]=table[i].services[j].service;
-                      }
-                      tableData[i].services=arr.toString();
-                      arr=[];
-                      for(let j=0; j<table[i].softwares.length; j++)
-                      {
-                        arr[j]=table[i].softwares[j].software;
-                      }
-                      tableData[i].softwares=arr.toString();
-                      arr=[];
-                      for(let j=0; j<table[i].owners.length; j++)
-                      {
-                        arr[j]=table[i].owners[j].owner;
-                      }
-                      tableData[i].owners=arr.toString();
-                      arr=[];
-                      for(let j=0; j<table[i].usernames.length; j++)
-                      {
-                        arr[j]=table[i].usernames[j].username;
-                      }
-                      tableData[i].usernames=arr.toString();
-                      arr=[];
+                    let arr={};
+                    for (var j = 0; j < this.fields.length; j++) {
+                      let prop=this.fields[j].prop;
+                      arr[prop]=table[i][prop];
+                    }
+                    arr.id=table[i].id;
+                    tableData.push(arr);
                   }
+
                 })
                 .then(data=> {
+
                 });
                 this.data= tableData;
+
       },
   }
 </script>

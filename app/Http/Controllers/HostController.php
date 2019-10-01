@@ -138,7 +138,6 @@ class HostController extends Controller
       }
       $input = $request->all();
       \App\host::where('id',$id)->first()->update($input);
-
       $multi=$this->multi;
       foreach ($multi as $key => $val) {
         $r=$val[0];

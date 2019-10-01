@@ -3793,12 +3793,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       deleteupdate: false,
+      split: [['services', 'service'], ['softwares', 'software'], ['usernames', 'username'], ['owners', 'owner']],
       data: [],
       fields: [{
         prop: "hostname",
         label: "Host name"
       }, {
-        prop: "IP",
+        prop: "ip",
         label: "IP address"
       }, {
         prop: "collector",
@@ -3869,11 +3870,15 @@ __webpack_require__.r(__webpack_exports__);
       url += row.id;
       var host = {};
       host = row;
-      host.services = row.services.split(",");
-      host.softwares = row.softwares.split(",");
-      host.usernames = row.usernames.split(",");
-      host.owners = row.owners.split(",");
-      console.log(host);
+      var split = this.split;
+
+      for (var i = 0; i < split.length; i++) {
+        var prop = split[i][0];
+        var rowprop = row[prop];
+        console.log(rowprop.split(","));
+        host[prop] = rowprop.split(",");
+      }
+
       this.$http.post(url, host).then(function (response) {
         console.log(response);
       }, function (error) {
@@ -3891,71 +3896,51 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this = this;
+
     var level = localStorage.getItem('level');
 
     if (level == 1) {
       this.deleteupdate = true;
     }
 
-    var table = {};
+    var table = [];
     var tableData = [];
     this.$http.get('/api/dashboard').then(function (data) {
       console.log(data);
       table = data.body;
 
       for (var i = 0; i < table.length; i++) {
-        tableData.push({
-          id: table[i].id,
-          hostname: table[i].hostname,
-          IP: table[i].ip,
-          collector: table[i].collector,
-          assetValue: table[i].assetValue,
-          icon: table[i].icon,
-          FQND: table[i].FQND,
-          OS: table[i].OS,
-          OSversion: table[i].OSversion,
-          CPU: table[i].CPU,
-          CPUbrand: table[i].CPUbrand,
-          RAM: table[i].RAM,
-          RAMbrand: table[i].RAMbrand,
-          MACaddress: table[i].MACaddress,
-          location: table[i].location,
-          HDD: table[i].HDD,
-          HDDbrand: table[i].HDDbrand,
-          services: [],
-          softwares: [],
-          owners: [],
-          usernames: []
-        });
-        var arr = [];
+        delete table[i].created_at;
+        delete table[i].updated_at;
+        var split = _this.split;
 
-        for (var j = 0; j < table[i].services.length; j++) {
-          arr[j] = table[i].services[j].service;
+        for (var k = 0; k < split.length; k++) {
+          var prop = split[k][0];
+          var p = split[k][1];
+          var arr = [];
+          var tableprop = table[i][prop];
+
+          for (var j = 0; j < tableprop.length; j++) {
+            var innertableprop = tableprop[j][p];
+            arr[j] = innertableprop;
+          }
+
+          tableprop = arr.toString();
+          table[i][prop] = tableprop;
+        }
+      }
+
+      for (var _i = 0; _i < table.length; _i++) {
+        var _arr = {};
+
+        for (var j = 0; j < _this.fields.length; j++) {
+          var _prop = _this.fields[j].prop;
+          _arr[_prop] = table[_i][_prop];
         }
 
-        tableData[i].services = arr.toString();
-        arr = [];
-
-        for (var _j = 0; _j < table[i].softwares.length; _j++) {
-          arr[_j] = table[i].softwares[_j].software;
-        }
-
-        tableData[i].softwares = arr.toString();
-        arr = [];
-
-        for (var _j2 = 0; _j2 < table[i].owners.length; _j2++) {
-          arr[_j2] = table[i].owners[_j2].owner;
-        }
-
-        tableData[i].owners = arr.toString();
-        arr = [];
-
-        for (var _j3 = 0; _j3 < table[i].usernames.length; _j3++) {
-          arr[_j3] = table[i].usernames[_j3].username;
-        }
-
-        tableData[i].usernames = arr.toString();
-        arr = [];
+        _arr.id = table[_i].id;
+        tableData.push(_arr);
       }
     }).then(function (data) {});
     this.data = tableData;
