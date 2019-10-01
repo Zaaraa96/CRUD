@@ -44,13 +44,8 @@
     data() {
       return {
         deleteupdate:false,
-        split:[
-          ['services','service'],
-          ['softwares','software'],
-          ['usernames','username'],
-          ['owners','owner'],
-        ],
         data:[],
+        //the name of fields of host
         fields:[
           {
             prop:"hostname",
@@ -132,7 +127,15 @@
             prop:"owners",
             label:"owners",
           },
-        ]
+        ],
+        //the fields that are array and need to be converted to string so they need splitting
+        //split[][0] is the name of the array that is passed as the field in fields
+        //split[][1] is the name of the prop in the array with the name of split[][0]
+        split:[
+          ['services','service'],
+          ['softwares','software'],
+          ['usernames','username'],
+          ['owners','owner'],],
       }
     },
     methods: {
@@ -149,10 +152,10 @@
             let host={};
             host= row;
             let split= this.split;
+            //for handling the ones that need splitting
             for (var i = 0; i < split.length; i++) {
               let prop=split[i][0];
               let rowprop=row[prop];
-              console.log(rowprop.split(","));
               host[prop]=rowprop.split(",");
             }
             this.$http.post(url,host)
@@ -183,7 +186,7 @@
     mounted:function() {
 
         let level=localStorage.getItem('level');
-        if(level==1){
+        if(level==1){//if user is admin
           this.deleteupdate=true;
         }
                 let table=[];
@@ -196,6 +199,7 @@
                     delete table[i].created_at;
                     delete table[i].updated_at;
                     let split=this.split;
+                    //for handling ones that need splitting
                     for (var k = 0; k < split.length; k++) {
                       let prop=split[k][0];
                       let p=split[k][1];

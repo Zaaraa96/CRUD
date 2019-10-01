@@ -2,8 +2,10 @@
   <div>
     <router-link to='/dashboard'><el-button type="primary" plain> dashboard</el-button></router-link>
     <router-link to='/add' v-if="add"><el-button type="primary" plain >add to table</el-button></router-link>
+    <router-link to='/log'><el-button type="primary" plain >show user activity</el-button></router-link>
     <router-link to='/login' v-if="loginshow"><el-button type="primary" plain >log in</el-button></router-link>
     <router-link to='/logout' v-if="logoutshow"><el-button type="primary" plain >log out</el-button></router-link>
+    <br>
     <br>
     <router-view></router-view>
   </div>
@@ -11,6 +13,7 @@
 <script type="text/javascript">
   import exampleComponent from './components/exampleComponent.vue';
   import signin from './components/signin.vue';
+  import redis from './components/redis.vue';
   import signout from './components/signout.vue';
   import dashboard from './components/dashboard.vue';
 
