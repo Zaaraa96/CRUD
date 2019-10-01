@@ -9,6 +9,35 @@ use Illuminate\Support\Facades\Validator;
 use Gate;
 class HostController extends Controller
 {
+  public $valid=[
+    'hostname'=> 'required',
+    'IP'=>'Nullable|ip',
+    'collector'=>'Nullable',
+    'assetValue'=>'Nullable',
+    'icon'=>'Nullable|url',
+    'FQND'=>'Nullable',
+    'OS'=>'Nullable',
+    'OSversion'=>'Nullable|numeric',
+    'CPU'=>'Nullable',
+    'CPUbrand'=>'Nullable',
+    'RAM'=>'Nullable',
+    'RAMbrand'=>'Nullable',
+    'MACaddress'=>'Nullable|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+    'location'=>'Nullable',
+    'HDD'=>'Nullable',
+    'HDDbrand'=>'Nullable',
+    'owners'=>'Nullable|array',
+    'softwares'=>'Nullable|array',
+    'services'=>'Nullable|array',
+    'usernames'=>'Nullable|array',
+    ];
+  public $multi=[
+      'services'=> ['services','service','\App\service'],
+      'owners'=>['owners','owner','\App\owner'],
+      'softwares'=>['softwares','software','\App\software'],
+      'usernames'=>['usernames','username','\App\username'],
+    ];
+
   public function redis(){
     $thisredis=[];
     $userid = Auth::id();
@@ -29,11 +58,12 @@ class HostController extends Controller
   }
     public function index(){
       $hosts=\App\host::all();
+      $multi=$this->multi;
       foreach ($hosts as $host) {
-        $services=$host->services;
-        $owners=$host->owners;
-        $softwares=$host->softwares;
-        $usernames=$host->usernames;
+        foreach ($multi as $key => $value) {
+          $type=$value[0];
+          $key=$host->$type;
+        }
       }
       $userid = Auth::id();
       $user="user".(string)$userid;
@@ -42,28 +72,7 @@ class HostController extends Controller
     }
     public function add(Request $request){
       if(Gate::allows('updatedelete')){
-      $validator = Validator::make($request->all(), [
-        'hostname'=> 'required',
-        'IP'=>'Nullable|ip',
-        'collector'=>'Nullable',
-        'assetValue'=>'Nullable',
-        'icon'=>'Nullable|url',
-        'FQND'=>'Nullable',
-        'OS'=>'Nullable',
-        'OSversion'=>'Nullable|numeric',
-        'CPU'=>'Nullable',
-        'CPUbrand'=>'Nullable',
-        'RAM'=>'Nullable',
-        'RAMbrand'=>'Nullable',
-        'MACaddress'=>'Nullable|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
-        'location'=>'Nullable',
-        'HDD'=>'Nullable',
-        'HDDbrand'=>'Nullable',
-        'owners'=>'Nullable|array',
-        'softwares'=>'Nullable|array',
-        'services'=>'Nullable|array',
-        'usernames'=>'Nullable|array',
-        ]);
+      $validator = Validator::make($request->all(), $this->valid);
 
       if($validator->fails()){
           return response([
@@ -76,35 +85,20 @@ class HostController extends Controller
 
       $input = $request->all();
       $insertedId = \App\host::create($input)->id;
+      $multi=$this->multi;
+      foreach ($multi as $key => $val) {
+        $r=$val[0];
+        $key=request($r);
+        $r2=$val[1];
+        $r3=$val[2];
+        foreach ($key as $value):
+          $prop= new $r3;
+          $prop->hostID= $insertedId;
+          $prop->$r2=$value;
+          $prop->save();
+        endforeach;
+      }
 
-      $owners= request('owners');
-      foreach ($owners as $value):
-        $owner= new \App\owner;
-        $owner->hostID= $insertedId;
-        $owner->owner=$value;
-        $owner->save();
-      endforeach;
-      $softwares= request('softwares');
-      foreach ($softwares as $value):
-        $software= new \App\software;
-        $software->hostID= $insertedId;
-        $software->software= $value;
-        $software->save();
-      endforeach;
-      $services= request('services');
-      foreach ($services as $value):
-        $service= new \App\service;
-        $service->hostID= $insertedId;
-        $service->service=$value;
-        $service->save();
-      endforeach;
-      $usernames= request('usernames');
-      foreach ($usernames as $value):
-        $username=  new \App\username;
-        $username->hostID= $insertedId;
-        $username->username=$value;
-        $username->save();
-      endforeach;
       $userid = Auth::id();
       $user="user".(string)$userid;
       Redis::lpush($user ,'create');
@@ -116,10 +110,11 @@ class HostController extends Controller
     public function delete($id){
      if(Gate::allows('updatedelete')){
         $hosts=\App\host::where('id',$id)->delete();
-        $owner=\App\owner::where('hostID',$id)->delete();
-        $service=\App\service::where('hostID',$id)->delete();
-        $software=\App\software::where('hostID',$id)->delete();
-        $username=\App\username::where('hostID',$id)->delete();
+        $multi=$this->multi;
+        foreach ($multi as $key => $val) {
+          $r3=$val[2];
+          $d=$r3::where('hostID',$id)->delete();
+        }
         $userid = Auth::id();
         $user="user".(string)$userid;
         Redis::lpush($user ,'delete');
@@ -131,28 +126,7 @@ class HostController extends Controller
     }
     public function change($id,Request $request){
       if(Gate::allows('updatedelete')){
-      $validator = Validator::make($request->all(), [
-        'hostname'=> 'required',
-        'IP'=>'Nullable|ip',
-        'collector'=>'Nullable',
-        'assetValue'=>'Nullable',
-        'icon'=>'Nullable|url',
-        'FQND'=>'Nullable',
-        'OS'=>'Nullable',
-        'OSversion'=>'Nullable|numeric',
-        'CPU'=>'Nullable',
-        'CPUbrand'=>'Nullable',
-        'RAM'=>'Nullable',
-        'RAMbrand'=>'Nullable',
-        'MACaddress'=>'Nullable|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
-        'location'=>'Nullable',
-        'HDD'=>'Nullable',
-        'HDDbrand'=>'Nullable',
-        'owners'=>'Nullable|array',
-        'softwares'=>'Nullable|array',
-        'services'=>'Nullable|array',
-        'usernames'=>'Nullable|array',
-        ]);
+      $validator = Validator::make($request->all(), $this->valid);
 
       if($validator->fails()){
           return response([
@@ -165,39 +139,21 @@ class HostController extends Controller
       $input = $request->all();
       \App\host::where('id',$id)->first()->update($input);
 
-      $owner=\App\owner::where('hostID',$id)->delete();
-      $service=\App\service::where('hostID',$id)->delete();
-      $software=\App\software::where('hostID',$id)->delete();
-      $username=\App\username::where('hostID',$id)->delete();
+      $multi=$this->multi;
+      foreach ($multi as $key => $val) {
+        $r=$val[0];
+        $key=request($r);
+        $r2=$val[1];
+        $r3=$val[2];
+        $d=$r3::where('hostID',$id)->delete();
+        foreach ($key as $value):
+          $prop= new $r3;
+          $prop->hostID= $id;
+          $prop->$r2=$value;
+          $prop->save();
+        endforeach;
+      }
 
-      $owners= request('owners');
-      foreach ($owners as $value):
-        $owner= new \App\owner;
-        $owner->hostID= $id;
-        $owner->owner=$value;
-        $owner->save();
-      endforeach;
-      $softwares= request('softwares');
-      foreach ($softwares as $value):
-        $software= new \App\software;
-        $software->hostID= $id;
-        $software->software= $value;
-        $software->save();
-      endforeach;
-      $services= request('services');
-      foreach ($services as $value):
-        $service= new \App\service;
-        $service->hostID= $id;
-        $service->service=$value;
-        $service->save();
-      endforeach;
-      $usernames= request('usernames');
-      foreach ($usernames as $value):
-        $username=  new \App\username;
-        $username->hostID= $id;
-        $username->username=$value;
-        $username->save();
-      endforeach;
       $userid = Auth::id();
       $user="user".(string)$userid;
       Redis::lpush($user ,'change');
